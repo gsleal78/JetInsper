@@ -5,8 +5,8 @@ import pygame
 pygame.init()
 
 # ----- Gera tela principal
-WIDTH = 500
-HEIGHT = 400
+WIDTH = 1000
+HEIGHT = 800
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Hello World!')
 
