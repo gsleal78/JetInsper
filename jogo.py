@@ -6,10 +6,10 @@ import random
 pygame.init()
 
 # ----- Gera tela principal
-WIDTH = 1000
-HEIGHT = 800
+WIDTH = 1200
+HEIGHT = 750
 window = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Navinha')
+pygame.display.set_caption('JetInsper')
 
 # ----- Inicia assets
 SHIP_WIDTH = 50
@@ -18,7 +18,7 @@ font = pygame.font.SysFont(None, 48)
 background = pygame.image.load('assets/img/tela inicial.webp').convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 logo = pygame.image.load('assets/img/logo.webp').convert_alpha()
-logo = pygame.transform.scale(logo, (WIDTH-200, HEIGHT-200))
+logo = pygame.transform.scale(logo, (WIDTH-200, HEIGHT-300))
 ship_img = pygame.image.load('assets/img/boneco voando normal .png').convert_alpha()
 ship_img = pygame.transform.scale(ship_img, (SHIP_WIDTH, SHIP_HEIGHT))
 bullet_img = pygame.image.load('assets/img/tiro.png').convert_alpha()
@@ -123,7 +123,7 @@ while game:
     # ----- Gera saídas
     window.fill((0, 0, 0))  # Preenche com a cor branca
     window.blit(background, (0, 0))
-    window.blit(logo, (100, 100))
+    window.blit(logo, (100, 0))
     pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
