@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -7,7 +8,7 @@ HEIGHT = 750
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
-from definindo_imagens import imagens 
+from definindo_imagens import imagens,MOEDAS_HEIGHT,MOEDAS_WIDTH,CHOQUE_HEIGHT,CHOQUE_WIDTH
 
 game = True
 
@@ -68,7 +69,60 @@ voando = barry(BARRY, 50,750)
 all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
     
+class Moeda(pygame.sprite.Sprite):
+    def __init__(self, img, x, y):
+        pygame.sprite.Sprite.__init__(self)
 
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+num_conjuntos = 1
+all_moedas = pygame.sprite.Group()
+
+for _ in range(num_conjuntos):
+    # Posição aleatória do centro do grupo de moedas
+    center_x = random.randint(100 + 3*MOEDAS_WIDTH, WIDTH - 100 - 3*MOEDAS_WIDTH)
+    center_y = random.randint(100 + 3*MOEDAS_HEIGHT, HEIGHT - 100 - 3*MOEDAS_HEIGHT)
+
+    # Calcula as posições das moedas em torno do centro
+    positions = [
+        (center_x - 20, center_y - 20),
+        (center_x + 20, center_y - 20),
+        (center_x - 20, center_y + 20),
+        (center_x + 20, center_y + 20),
+        (center_x - 20 - MOEDAS_WIDTH, center_y - 20),
+        (center_x + 20 + MOEDAS_WIDTH, center_y - 20),
+        (center_x - 20 - MOEDAS_WIDTH, center_y + 20),
+        (center_x + 20 + MOEDAS_WIDTH, center_y + 20),
+        (center_x - 20 - 2*MOEDAS_WIDTH, center_y - 20),
+        (center_x + 20 + 2*MOEDAS_WIDTH, center_y - 20),
+        (center_x - 20 - 2*MOEDAS_WIDTH, center_y + 20),
+        (center_x + 20 + 2*MOEDAS_WIDTH, center_y + 20),
+        (center_x - 20 - 3*MOEDAS_WIDTH, center_y - 20),
+        (center_x + 20 + 3*MOEDAS_WIDTH, center_y - 20),
+        (center_x - 20 - 3*MOEDAS_WIDTH, center_y + 20),
+        (center_x + 20 + 3*MOEDAS_WIDTH, center_y + 20),
+    ]
+
+    # Criando as moedas nas posições calculadas
+    for pos in positions:
+        moeda = Moeda(imagens["MOEDAS_img"], *pos)
+        all_moedas.add(moeda)
+#Inicia estrutura de dados Laser
+class Laser(pygame.sprite.Sprite):
+    def __init__(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0,WIDTH-CHOQUE_WIDTH)
+        self.rect.bottom = random.randint (CHOQUE_HEIGHT,HEIGHT)
+#criando laser
+laser=Laser(imagens["CHOQUE1_img"])
+lasersprite=pygame.sprite.Group()
+lasersprite.add(laser)
 
 # No loop principal
 while game:
@@ -92,11 +146,16 @@ while game:
                 all_sprites.add(voando)
                 voando.speedy -= 20  # Reduz a velocidade vertical
                 voando.shooting = False
+    if pygame.sprite.spritecollideany(laser, all_moedas):
+        # Se houver colisão, move o laser para uma nova posição
+        laser.rect.x = random.randint(0, WIDTH - CHOQUE_WIDTH)
+        laser.rect.bottom = random.randint(CHOQUE_HEIGHT, HEIGHT)
     # Atualize a posição do personagem
     all_sprites.update()
     window.blit(background, (0,0))
     all_sprites.draw(window)
-
+    all_moedas.draw(window)
+    lasersprite.draw(window)
     pygame.display.update()  # Mostra o novo frame para o jogador
     clock.tick(FPS)
 # ===== Finalização =====

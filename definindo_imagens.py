@@ -47,11 +47,11 @@ tiro_img = pygame.transform.scale(tiro_img,(TIRO_WIDTH,TIRO_HEIGHT))
 
 #OBSTACULOS
 MOEDAS_WIDTH = 50
-MOEDAS_HEIGHT = 50
+MOEDAS_HEIGHT = 38
 MOEDAS_img = pygame.image.load('assets/img/moeda.webp').convert_alpha()
 MOEDAS_img = pygame.transform.scale(MOEDAS_img,(MOEDAS_WIDTH,MOEDAS_HEIGHT))
-CHOQUE_WIDTH = 250
-CHOQUE_HEIGHT = 250
+CHOQUE_WIDTH = random.randint(200,400)
+CHOQUE_HEIGHT = random.randint(200,500)
 CHOQUE1_img = pygame.image.load('assets/img/bolinhas do chao.webp').convert_alpha()
 CHOQUE1_img = pygame.transform.scale(CHOQUE1_img,(CHOQUE_WIDTH,CHOQUE_HEIGHT))
 CHOQUE2_img = pygame.image.load('assets/img/bolinhas_do_chao_2.png').convert_alpha()
