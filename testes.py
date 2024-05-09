@@ -8,6 +8,7 @@ HEIGHT = 750
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
+# Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
 from definindo_imagens import imagens, variaveis_dimensoes
 
 game = True
@@ -113,35 +114,56 @@ def criar_moedas():
             (center_x + 20 + 3*variaveis_dimensoes["MOEDAS_WIDTH"], center_y + 20),
         ]
 
-        # Criando as moedas nas posições calculadas
-        for pos in positions:
-            moeda = Moeda(imagens["MOEDAS_img"], *pos)
-            all_moedas.add(moeda)
+        # Verificar se alguma posição coincide com a posição do laser
+        for laser in lasersprite:
+            for pos in positions:
+                if laser.rect.collidepoint(pos):
+                    break
+            else:
+                continue
+            break
+        else:
+            # Criando as moedas nas posições calculadas
+            for pos in positions:
+                moeda = Moeda(imagens["MOEDAS_img"], *pos)
+                all_moedas.add(moeda)
 
-# Inicia estrutura de dados Laser
+# Variável para controlar o tempo para criar novas moedas
+criar_moedas_timer = pygame.time.get_ticks()
+
 class Laser(pygame.sprite.Sprite):
     def __init__(self, img):
-        # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(WIDTH, WIDTH + 200)
-        self.rect.bottom = random.randint (100 + 3*variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT - 100 - 3*variaveis_dimensoes["CHOQUE_HEIGHT"])
+        self.rect.bottom = random.randint(variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
 
-# Criando grupo de sprites para os lasers
+    def update(self):
+        self.rect.x -= 10  # Movimento para a esquerda
+        if self.rect.right < 0:  # Se o laser sair completamente da tela
+            self.kill()  # Remover o laser
+
+        # Verificar colisão com as moedas
+        colisoes = pygame.sprite.spritecollide(self, all_moedas, False)
+        if colisoes:
+            for colisao in colisoes:
+                colisao.kill()  # Remover a moeda
+
 lasersprite = pygame.sprite.Group()
+
+# Função para criar um novo laser
+def criar_laser():
+    laser = Laser(imagens["CHOQUE1_img"])
+    lasersprite.add(laser)
+
+# Variável para controlar o tempo para criar novos lasers
+criar_laser_timer = pygame.time.get_ticks()
 
 # Variável para controlar a posição x do fundo
 background_x = 0
 
-# Variável para controlar o momento da última criação de laser
-criar_laser_timer = pygame.time.get_ticks()
-
-# Variável para controlar o momento da última criação de moedas
-criar_moedas_timer = pygame.time.get_ticks()
-
-# No loop principal
 while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -154,7 +176,7 @@ while game:
                 all_sprites.add(voando)
                 voando.shooting = True
                 voando.speedy = 20  # Reduz a velocidade vertical
-                
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
                 all_sprites.remove(voando)
@@ -170,16 +192,15 @@ while game:
 
     # Verificar se é hora de criar um novo laser
     if pygame.time.get_ticks() - criar_laser_timer > 5000:  # 5000 milissegundos = 5 segundos
-        laser = Laser(imagens["CHOQUE1_img"])
-        lasersprite.add(laser)
+        criar_laser()
         criar_laser_timer = pygame.time.get_ticks()
 
     # Atualize a posição do personagem
     all_sprites.update()
-    
+
     # Atualize a posição x do fundo para movê-lo para a esquerda
     background_x -= 10
-    
+
     # Verifique se o fundo original saiu completamente da tela
     if background_x <= -WIDTH:
         background_x = 0
@@ -188,11 +209,11 @@ while game:
     window.blit(background, (background_x, 0))
     window.blit(background, (background_x + WIDTH, 0))
 
-    all_moedas.update()  # Atualize a posição das moedas
-    all_moedas.draw(window)  # Desenhe as moedas
-    lasersprite.update()  # Atualize a posição dos lasers
-    lasersprite.draw(window)  # Desenhe os lasers
-    all_sprites.draw(window)  # Desenhe o personagem e os tiros
+    all_moedas.update()  
+    all_moedas.draw(window)  
+    lasersprite.update()  
+    lasersprite.draw(window)  
+    all_sprites.draw(window)  
 
     pygame.display.update()  
     clock.tick(FPS)
