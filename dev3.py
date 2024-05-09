@@ -98,7 +98,10 @@ while game:
             game = False
 
     # ----- Atualiza estado do jogo
-
+    if pygame.sprite.spritecollideany(laser, all_moedas):
+        # Se houver colisão, move o laser para uma nova posição
+        laser.rect.x = random.randint(0, WIDTH - laser_WIDTH)
+        laser.rect.bottom = random.randint(laser_HEIGHT, HEIGHT)
     # ----- Gera saídas aleatórias
     window.fill((0, 0, 0))  # Preenche com a cor branca
     window.blit(background, (0, 0))
