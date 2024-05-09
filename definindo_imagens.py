@@ -7,7 +7,7 @@ import random
 # Definição do tamanho da janela
 
 
-#planos de fundo d
+#planos de fundo 
 
 
 WIDTH = 1200
@@ -16,7 +16,7 @@ background_i = pygame.image.load('assets/img/tela inicial.webp').convert()
 background_i = pygame.transform.scale(background_i, (WIDTH, HEIGHT))
 logo = pygame.image.load('assets/img/logo.webp').convert_alpha()
 logo = pygame.transform.scale(logo, (WIDTH-200, HEIGHT-300))
-TESTLAB = pygame.image.load('assets/img/plano de fundo testlab.webp').convert()
+TESTLAB = pygame.image.load('assets/img/plano de fundo testlab.jpg').convert()
 TESTLAB = pygame.transform.scale(TESTLAB, (WIDTH, HEIGHT))
 FUNDOPEDRA = pygame.image.load('assets/img/plano de fundo pedra.webp').convert()
 FUNDOPEDRA = pygame.transform.scale(FUNDOPEDRA, (WIDTH, HEIGHT))
