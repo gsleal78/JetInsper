@@ -1,9 +1,15 @@
 import pygame 
 import random
-pygame.init()
+
+# Inicialização do Pygame
+
+
+# Definição do tamanho da janela
 
 
 #planos de fundo
+
+
 WIDTH = 1200
 HEIGHT = 750
 background_i = pygame.image.load('assets/img/tela inicial.webp').convert()
@@ -68,7 +74,6 @@ ALERTA_P_img = pygame.transform.scale(ALERTA_P_img,(ALERTA_P_WIDTH,ALERTA_P_HEIG
 
 
 
-
 chaves = [
     background_i,
     logo,
@@ -87,12 +92,22 @@ chaves = [
     ALERTA_P_img
 ]
 
-
-imagens = {}
-for c in chaves(): 
-    imagens[str(c)] = c 
-
-print(imagens)
-
+imagens = {
+    "background_i": background_i,
+    "logo": logo,
+    "TESTLAB": TESTLAB,
+    "FUNDOPEDRA": FUNDOPEDRA,
+    "FUNDOSELVA": FUNDOSELVA,
+    "barry_v_img": barry_v_img,
+    "barry_a_img": barry_a_img,
+    "CIENTISTA_img": CIENTISTA_img,
+    "tiro_img": tiro_img,
+    "MOEDAS_img": MOEDAS_img,
+    "CHOQUE1_img": CHOQUE1_img,
+    "CHOQUE2_img": CHOQUE2_img,
+    "MISSIL_img": MISSIL_img,
+    "ALERTA_I_img": ALERTA_I_img,
+    "ALERTA_P_img": ALERTA_P_img
+}
 
 
