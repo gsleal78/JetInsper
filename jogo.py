@@ -125,6 +125,9 @@ laser=Laser(imagens["CHOQUE1_img"])
 lasersprite=pygame.sprite.Group()
 lasersprite.add(laser)
 
+# Variável para controlar a posição x do fundo
+background_x = 0
+
 # No loop principal
 while game:
     for event in pygame.event.get():
@@ -149,14 +152,24 @@ while game:
                 voando.shooting = False
     if pygame.sprite.spritecollideany(laser, all_moedas):
         # Se houver colisão, move o laser para uma nova posição
-        laser.rect.x = random.randint(0, WIDTH - variaveis_dimensoes["LASER_WIDTH"])
+        laser.rect.x = random.randint(0, WIDTH - variaveis_dimensoes["CHOQUE_WIDTH"])
         laser.rect.bottom = random.randint(variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
     # Atualize a posição do personagem
     all_sprites.update()
-    window.blit(background, (0,0))
-    all_sprites.draw(window)
+    # Atualize a posição x do fundo para movê-lo para a esquerda
+    background_x -= 10
+    # Verifique se o fundo original saiu completamente da tela
+    if background_x <= -WIDTH:
+        background_x = 0
+
+    # Desenhe o fundo duas vezes para criar o efeito de loop infinito
+    window.blit(background, (background_x, 0))
+    window.blit(background, (background_x + WIDTH, 0))
+
     all_moedas.draw(window)
     lasersprite.draw(window)
+    all_sprites.draw(window)
+
     pygame.display.update()  # Mostra o novo frame para o jogador
     clock.tick(FPS)
 # ===== Finalização =====
