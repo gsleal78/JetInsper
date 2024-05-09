@@ -10,30 +10,16 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
 # ----- Inicia assets
-BARRY_WIDTH = 100
-BARRY_HEIGHT = 100
+SHIP_WIDTH = 100
+SHIP_HEIGHT = 5
 font = pygame.font.SysFont(None, 48)
 background = pygame.image.load('assets/img/tela inicial.webp').convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 logo = pygame.image.load('assets/img/logo.webp').convert_alpha()
 logo = pygame.transform.scale(logo, (WIDTH-200, HEIGHT-300))
-ship_img = pygame.image.load('assets/img/boneco_voando_normal.png').convert_alpha()
-ship_img = pygame.transform.scale(ship_img, (BARRY_WIDTH, BARRY_HEIGHT))
-tiro_img = pygame.image.load('assets/img/tiro.png').convert_alpha()
-tiro_img = pygame.transform.scale(tiro_img,(50,70))
-MOEDAS_WIDTH = 50
-MOEDAS_HEIGHT = 50
-MOEDAS_IMG = pygame.image.load('assets/img/moeda.webp').convert_alpha()
-MOEDAS_IMG = pygame.transform.scale(MOEDAS_IMG,(MOEDAS_WIDTH,MOEDAS_HEIGHT))
-ALERTA_I_WIDTH = 150
-ALERTA_I_HEIGHT = 125
-ALERTA_I_IMG = pygame.image.load('assets/img/alerta-inicial.png').convert_alpha()
-ALERTA_I_IMG = pygame.transform.scale(ALERTA_I_IMG,(ALERTA_I_WIDTH,ALERTA_I_HEIGHT))
-ALERTA_P_WIDTH = 150
-ALERTA_P_HEIGHT = 125
-ALERTA_P_IMG = pygame.image.load('assets/img/Alerta-chegando.png').convert_alpha()
-ALERTA_P_IMG = pygame.transform.scale(ALERTA_P_IMG,(ALERTA_P_WIDTH,ALERTA_P_HEIGHT))
-
+ship_img = pygame.image.load('assets/img/boneco_voando_normal_.png').convert_alpha()
+ship_img = pygame.transform.scale(ship_img, (SHIP_WIDTH, SHIP_HEIGHT))
+bullet_img = pygame.image.load('assets/img/tiro.png').convert_alpha()
 
 # ----- Inicia estruturas de dados
 # Definindo os novos tipos
@@ -100,7 +86,7 @@ FPS = 30
 all_sprites = pygame.sprite.Group()
 all_bullets = pygame.sprite.Group()
 # Criando o jogador
-player = Ship(ship_img, all_sprites, all_bullets, tiro_img)
+player = Ship(ship_img, all_sprites, all_bullets, bullet_img)
 all_sprites.add(player)
 
 # ===== Loop principal =====
@@ -135,8 +121,8 @@ while game:
     # ----- Gera saídas
     window.fill((0, 0, 0))  # Preenche com a cor branca
     window.blit(background, (0, 0))
-    window.blit(ALERTA_I_IMG,(0,100))
-    window.blit(ALERTA_P_IMG,(0,200))
+    window.blit(logo, (100, 0))
+    window.blit(ship_img,(100,0))
     pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
