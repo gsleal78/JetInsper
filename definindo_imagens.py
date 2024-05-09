@@ -7,7 +7,7 @@ import random
 # Definição do tamanho da janela
 
 
-#planos de fundo
+#planos de fundo d
 
 
 WIDTH = 1200
