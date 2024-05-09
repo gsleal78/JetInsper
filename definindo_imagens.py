@@ -74,23 +74,6 @@ ALERTA_P_img = pygame.transform.scale(ALERTA_P_img,(ALERTA_P_WIDTH,ALERTA_P_HEIG
 
 
 
-chaves = [
-    background_i,
-    logo,
-    TESTLAB,
-    FUNDOPEDRA,
-    FUNDOSELVA,
-    barry_v_img,
-    barry_a_img,
-    CIENTISTA_img,
-    tiro_img,
-    MOEDAS_img,
-    CHOQUE1_img,
-    CHOQUE2_img,
-    MISSIL_img,
-    ALERTA_I_img,
-    ALERTA_P_img
-]
 
 imagens = {
     "background_i": background_i,
@@ -110,4 +93,24 @@ imagens = {
     "ALERTA_P_img": ALERTA_P_img
 }
 
+variaveis_dimensoes = {
+    "WIDTH": 1200,
+    "HEIGHT": 750,
+    "BARRY_WIDTH": 100,
+    "BARRY_HEIGHT": 100,
+    "CIENTISTA_WIDTH": 100,
+    "CIENTISTA_HEIGHT": 100,
+    "TIRO_WIDTH": 50,
+    "TIRO_HEIGHT": 70,
+    "MOEDAS_WIDTH": 50,
+    "MOEDAS_HEIGHT": 38,
+    "CHOQUE_WIDTH": random.randint(200, 400),
+    "CHOQUE_HEIGHT": random.randint(200, 500),
+    "MISSIL_WIDTH": 300,
+    "MISSIL_HEIGHT": 150,
+    "ALERTA_I_WIDTH": 150,
+    "ALERTA_I_HEIGHT": 125,
+    "ALERTA_P_WIDTH": 150,
+    "ALERTA_P_HEIGHT": 125
+}
 
