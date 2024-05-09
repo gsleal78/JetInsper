@@ -9,13 +9,19 @@ ini = 0
 jogo = 1
 sair = 2
 
-def init_screen(tela):
+def tela_inicio(tela):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join(imagens, 'background_i')).convert()
     background_rect = background.get_rect()
+    background = pygame.transform.scale(background, (1200, 750))
+    logo = pygame.image.load(path.join(imagens, 'logo')).convert()
+    logo_rect = logo.get_rect()
+    logo = pygame.transform.scale(logo, (1000, 450))
+
+    
 
     rodando = True
     while rodando:
@@ -37,6 +43,7 @@ def init_screen(tela):
         # A cada loop, redesenha o fundo e os sprites
         tela.fill(0,0,0)
         tela.blit(background, background_rect)
+        tela.blit(logo, logo_rect)
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
