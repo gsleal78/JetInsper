@@ -14,15 +14,15 @@ pygame.display.set_caption('Navinha')
 # ----- Inicia assets
 moeda_WIDTH = 50
 moeda_HEIGHT = 38
-laser_WIDTH = random.randint(100,200)
-laser_HEIGHT = random.randint(100,200)
+laser_WIDTH = random.randint(200,400)
+laser_HEIGHT = random.randint(200,500)
 font = pygame.font.SysFont(None, 48)
 background = pygame.image.load('assets/img/tela inicial.webp').convert()
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 moeda_img = pygame.image.load('assets/img/moeda.webp').convert_alpha()
 moeda_img = pygame.transform.scale(moeda_img, (moeda_WIDTH, moeda_HEIGHT))
 laser_img = pygame.image.load('assets/img/bolinhas_do_chao_2.png').convert_alpha()
-laser_img = pygame.transform.scale(moeda_img, (laser_WIDTH, laser_HEIGHT))
+laser_img = pygame.transform.scale(laser_img, (laser_WIDTH, laser_HEIGHT))
 # ----- Inicia estruturas de dados Moedas
 class Moeda(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
@@ -69,7 +69,19 @@ for _ in range(num_conjuntos):
         moeda = Moeda(moeda_img, *pos)
         all_moedas.add(moeda)
 #Inicia estrutura de dados Laser
+class Laser(pygame.sprite.Sprite):
+    def __init__(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
 
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0,WIDTH-laser_WIDTH)
+        self.rect.bottom = random.randint (laser_HEIGHT,HEIGHT)
+#criando laser
+laser=Laser(laser_img)
+lasersprite=pygame.sprite.Group()
+lasersprite.add(laser)
 game = True
 # Variável para o ajuste de velocidade
 clock = pygame.time.Clock()
@@ -92,7 +104,7 @@ while game:
     window.blit(background, (0, 0))
     # Desenhando moedas
     all_moedas.draw(window)
-    
+    lasersprite.draw(window)
     pygame.display.update()  # Mostra o novo frame para o jogador
 
 # ===== Finalização =====
