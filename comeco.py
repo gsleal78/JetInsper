@@ -5,8 +5,11 @@ from os import path
 from definindo_imagens import imagens
 
 FPS = 30
+ini = 0
+jogo = 1
+sair = 2
 
-def init_screen(screen):
+def init_screen(tela):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
@@ -24,16 +27,16 @@ def init_screen(screen):
         for event in pygame.event.get():
             # Verifica se foi fechado.
             if event.type == pygame.QUIT:
-                estado = QUIT
+                estado = sair
                 rodando = False
 
             if event.type == pygame.KEYUP:
-                estado = GAME
+                estado = jogo
                 rodando = False
 
         # A cada loop, redesenha o fundo e os sprites
-        screen.fill(BLACK)
-        screen.blit(background, background_rect)
+        tela.fill(0,0,0)
+        tela.blit(background, background_rect)
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
