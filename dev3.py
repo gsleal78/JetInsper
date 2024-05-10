@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 
 pygame.init()
 pygame.mixer.init()
@@ -11,6 +12,12 @@ pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
 from definindo_imagens import imagens, variaveis_dimensoes,texto_inicial
+
+# Carrega os sons do jogo
+pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
+pygame.mixer.music.set_volume(0.4)
+coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥.mp3')
+eletric_sound = pygame.mixer.Sound('assets/snd/Electric Zap 001 Sound Effect (mp3cut.net).mp3')
 
 game_started = False  # Define o estado inicial do jogo como False
 
@@ -27,8 +34,8 @@ LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1,LASER2]
 
 class barry(pygame.sprite.Sprite):
-    def _init_(self, img, x, y):  
-        pygame.sprite.Sprite._init_(self)
+    def __init__(self, img, x, y):  
+        pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
@@ -62,8 +69,8 @@ class barry(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()
 
 class tiro(pygame.sprite.Sprite): 
-    def _init_(self,img, bottom, centerx): 
-        pygame.sprite.Sprite._init_(self)
+    def __init__(self,img, bottom, centerx): 
+        pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.centerx = centerx
@@ -81,8 +88,8 @@ all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
 
 class Moeda(pygame.sprite.Sprite):
-    def _init_(self, img, x, y):
-        pygame.sprite.Sprite._init_(self)
+    def __init__(self, img, x, y):
+        pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
@@ -147,8 +154,8 @@ def criar_moedas():
 criar_moedas_timer = pygame.time.get_ticks()
 
 class Laser(pygame.sprite.Sprite):
-    def _init_(self, img):
-        pygame.sprite.Sprite._init_(self)
+    def __init__(self, img):
+        pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
@@ -190,6 +197,7 @@ criar_laser_timer = pygame.time.get_ticks()
 background_x = 0
 
 # Loop principal do jogo
+pygame.mixer.music.play(loops=-1)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
