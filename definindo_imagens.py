@@ -132,4 +132,3 @@ variaveis_dimensoes = {
     "ALERTA_P_WIDTH": 150,
     "ALERTA_P_HEIGHT": 125
 }
-
