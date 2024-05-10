@@ -45,6 +45,8 @@ FUNDOPEDRA = pygame.image.load('assets/img/plano de fundo pedra.webp').convert()
 FUNDOPEDRA = pygame.transform.scale(FUNDOPEDRA, (WIDTH, HEIGHT))
 FUNDOSELVA = pygame.image.load('assets/img/plano de fundo selva.webp').convert()
 FUNDOSELVA = pygame.transform.scale(FUNDOSELVA, (WIDTH, HEIGHT))
+IMAGEM_TRANSIÇAO_1 = pygame.image.load('assets/img/plano de fundo selva.webp').convert()
+IMAGEM_TRANSIÇAO_1 = pygame.transform.scale(IMAGEM_TRANSIÇAO_1, (WIDTH, HEIGHT))
 
 
 #BARRY
@@ -113,7 +115,8 @@ imagens = {
     "CHOQUE2_img": CHOQUE2_img,
     "MISSIL_img": MISSIL_img,
     "ALERTA_I_img": ALERTA_I_img,
-    "ALERTA_P_img": ALERTA_P_img
+    "ALERTA_P_img": ALERTA_P_img,
+    "IMAGEM_TRANSIÇAO_1": IMAGEM_TRANSIÇAO_1
 }
 
 variaveis_dimensoes = {
