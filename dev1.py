@@ -15,7 +15,7 @@ from definindo_imagens import imagens, variaveis_dimensoes,texto_inicial,fonte_m
 # Carrega os sons do jogo
 pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
 pygame.mixer.music.set_volume(0.4)
-coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥.mp3')
+coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥 (mp3cut.net).mp3')
 eletric_sound = pygame.mixer.Sound('assets/snd/Electric Zap 001 Sound Effect (mp3cut.net).mp3')
 
 game_started = False  # Define o estado inicial do jogo como False
