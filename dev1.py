@@ -200,12 +200,19 @@ while True:
                 game_started = True  # Começa o jogo
             elif game_started:
                 if event.key == pygame.K_SPACE:
+                    all_sprites.remove(voando)
                     BARRY = imagens["barry_a_img"]
+                    voando = barry(BARRY, voando.rect.x, voando.rect.y)
+                    all_sprites.add(voando)
                     voando.shooting = True
                     voando.speedy = 10
 
         elif event.type == pygame.KEYUP:
             if game_started and event.key == pygame.K_SPACE:
+                all_sprites.remove(voando)
+                BARRY = imagens["barry_v_img"]
+                voando = barry(BARRY, voando.rect.x, voando.rect.y)
+                all_sprites.add(voando)
                 voando.shooting = False
                 voando.speedy -= 20 # Reduz a velocidade vertical
 
