@@ -2,6 +2,7 @@ import pygame
 import random
 
 pygame.init()
+pygame.mixer.init()
 
 WIDTH = 1200
 HEIGHT = 750
@@ -10,6 +11,12 @@ pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
 from definindo_imagens import imagens, variaveis_dimensoes,texto_inicial,fonte_moeda
+
+# Carrega os sons do jogo
+pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
+pygame.mixer.music.set_volume(0.4)
+coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥.mp3')
+eletric_sound = pygame.mixer.Sound('assets/snd/Electric Zap 001 Sound Effect (mp3cut.net).mp3')
 
 game_started = False  # Define o estado inicial do jogo como False
 
@@ -97,7 +104,7 @@ class Moeda(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, voando):
             voando.moedas_coletadas += 1  # Aumenta a contagem de moedas
             self.kill()  # Remove a moeda
-
+            coin_sound.play()
 num_conjuntos = 1
 all_moedas = pygame.sprite.Group()
 
@@ -189,6 +196,7 @@ criar_laser_timer = pygame.time.get_ticks()
 background_x = 0
 
 # Loop principal do jogo
+pygame.mixer.music.play(loops=-1)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
