@@ -174,8 +174,6 @@ while True:
                 if event.key == pygame.K_SPACE:
                     voando.shooting = True
                     voando.speedy = 20
-            elif not game_started and event.key == pygame.K_SPACE:  # Se o jogo não começou e a tecla de espaço for pressionada
-                game_started = True  # Começa o jogo
 
         elif event.type == pygame.KEYUP:
             if game_started and event.key == pygame.K_SPACE:

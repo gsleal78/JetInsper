@@ -21,6 +21,9 @@ logo = imagens["logo"]
 background = imagens["TESTLAB"]
 BARRY = imagens["barry_v_img"]
 TIRO = imagens["tiro_img"]
+LASER1 = imagens["CHOQUE1_img"]
+LASER2 = imagens["CHOQUE2_img"]
+LASER_LISTA = [LASER1,LASER2]
 
 class barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y):  
@@ -168,10 +171,11 @@ class Laser(pygame.sprite.Sprite):
 lasersprite = pygame.sprite.Group()
 
 # Função para criar um novo laser
-def criar_laser():
-    laser = Laser(imagens["CHOQUE1_img"])
+def criar_laser(): 
+    LASER = random.choice(LASER_LISTA)
+    laser = Laser(LASER)
     lasersprite.add(laser)
-
+     
 # Variável para controlar o tempo para criar novos lasers
 criar_laser_timer = pygame.time.get_ticks()
 
