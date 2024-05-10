@@ -37,6 +37,9 @@ class barry(pygame.sprite.Sprite):
         self.shoot_delay = 75  
         self.shooting = False
 
+        # Criar uma máscara de colisão precisa
+        self.mask = pygame.mask.from_surface(self.image)
+
     def update(self):
         self.rect.x += self.speedx
         self.rect.y -= self.speedy
@@ -142,6 +145,9 @@ class Laser(pygame.sprite.Sprite):
         self.rect.x = random.randint(WIDTH, WIDTH + 200)
         self.rect.bottom = random.randint(0+variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
 
+        # Criar uma máscara de colisão precisa
+        self.mask = pygame.mask.from_surface(self.image)
+
     def update(self):
         self.rect.x -= 10  # Movimento para a esquerda
         if self.rect.right < 0:  # Se o laser sair completamente da tela
@@ -152,6 +158,12 @@ class Laser(pygame.sprite.Sprite):
         if colisoes:
             for colisao in colisoes:
                 colisao.kill()  # Remover a moeda
+
+        # Verificar colisão com o Barry
+        if pygame.sprite.collide_mask(self, voando):
+            game_started = False  # Parar o jogo se houver colisão
+            pygame.quit()
+            quit()
 
 lasersprite = pygame.sprite.Group()
 
@@ -226,5 +238,3 @@ while True:
 
     pygame.display.update()  
     clock.tick(FPS)
-
-pygame.quit()
