@@ -26,8 +26,8 @@ LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1,LASER2]
 
 class barry(pygame.sprite.Sprite):
-    def __init__(self, img, x, y):  
-        pygame.sprite.Sprite.__init__(self)
+    def _init_(self, img, x, y):  
+        pygame.sprite.Sprite._init_(self)
 
         self.image = img
         self.rect = self.image.get_rect()
@@ -61,8 +61,8 @@ class barry(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()
 
 class tiro(pygame.sprite.Sprite): 
-    def __init__(self,img, bottom, centerx): 
-        pygame.sprite.Sprite.__init__(self)
+    def _init_(self,img, bottom, centerx): 
+        pygame.sprite.Sprite._init_(self)
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.centerx = centerx
@@ -80,8 +80,8 @@ all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
 
 class Moeda(pygame.sprite.Sprite):
-    def __init__(self, img, x, y):
-        pygame.sprite.Sprite.__init__(self)
+    def _init_(self, img, x, y):
+        pygame.sprite.Sprite._init_(self)
 
         self.image = img
         self.rect = self.image.get_rect()
@@ -146,8 +146,8 @@ def criar_moedas():
 criar_moedas_timer = pygame.time.get_ticks()
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, img):
-        pygame.sprite.Sprite.__init__(self)
+    def _init_(self, img):
+        pygame.sprite.Sprite._init_(self)
 
         self.image = img
         self.rect = self.image.get_rect()
