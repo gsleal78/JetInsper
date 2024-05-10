@@ -1,10 +1,29 @@
 import pygame 
 import random
 
-# Inicialização do Pygame
+#DIMENSÕES DA TELA 
+WIDHT = 1200
+HEIGHT = 750
 
 
-# Definição do tamanho da janela
+
+#caminho da fonte do testo
+
+caminho_fonte = "assets/fontes/PublicPixel-E447g.ttf"
+minha_fonte = pygame.font.Font(caminho_fonte, 36)
+texto_linha1 = "Aperte ENTER para"
+texto_linha2 = "iniciar o jogo"
+texto_renderizado1 = minha_fonte.render(texto_linha1, True, (0, 100, 255))
+texto_renderizado2 = minha_fonte.render(texto_linha2, True, (0, 100, 255))
+posicao_y_linha1 = HEIGHT // 2 - texto_renderizado1.get_height()
+posicao_y_linha2 = HEIGHT // 2
+
+texto_inicial = {
+    "texto_renderizado1": texto_renderizado1,
+    "texto_renderizado2": texto_renderizado2,
+    "posicao_y_linha1": posicao_y_linha1,
+    "posicao_y_linha2": posicao_y_linha2
+}
 
 
 #planos de fundo 
