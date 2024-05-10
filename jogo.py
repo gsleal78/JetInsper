@@ -9,12 +9,12 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
-from definindo_imagens import imagens, variaveis_dimensoes
+from definindo_imagens import imagens, variaveis_dimensoes,texto_inicial
 
 game_started = False  # Define o estado inicial do jogo como False
 
 clock = pygame.time.Clock()
-FPS = 30
+FPS = 60
 
 background_i = imagens["background_i"]
 logo = imagens["logo"]
@@ -39,6 +39,7 @@ class barry(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()  
         self.shoot_delay = 75  
         self.shooting = False
+        self.moedas_coletadas = 0 
 
         # Criar uma máscara de colisão precisa
         self.mask = pygame.mask.from_surface(self.image)
@@ -66,7 +67,7 @@ class tiro(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = centerx
         self.rect.bottom = bottom
-        self.speedy = 35
+        self.speedy = 15
 
     def update(self): 
         self.rect.y += self.speedy
@@ -88,9 +89,14 @@ class Moeda(pygame.sprite.Sprite):
         self.rect.y = y
 
     def update(self):
-        self.rect.x -= 10  # Movimento para a esquerda
+        self.rect.x -= 5  # Movimento para a esquerda
         if self.rect.right < 0:  # Se a moeda sair completamente da tela
             self.kill()  # Remover a moeda
+        
+        if pygame.sprite.collide_mask(self, voando):
+            voando.moedas_coletadas += 1  # Aumenta a contagem de moedas
+            print("Moedas coletadas:", voando.moedas_coletadas)  # Imprime a quantidade de moedas coletadas
+            self.kill()  # Remove a moeda
 
 num_conjuntos = 1
 all_moedas = pygame.sprite.Group()
@@ -146,13 +152,13 @@ class Laser(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(WIDTH, WIDTH + 200)
-        self.rect.bottom = random.randint(0+variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
+        self.rect.bottom = random.randint(100+variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
 
         # Criar uma máscara de colisão precisa
         self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
-        self.rect.x -= 10  # Movimento para a esquerda
+        self.rect.x -= 5  # Movimento para a esquerda
         if self.rect.right < 0:  # Se o laser sair completamente da tela
             self.kill()  # Remover o laser
 
@@ -189,23 +195,23 @@ while True:
             pygame.quit()
             quit()
         elif event.type == pygame.KEYDOWN:
-            if not game_started and event.key == pygame.K_SPACE:  # Se o jogo ainda não começou e a tecla de espaço for pressionada
+            if not game_started and event.key == pygame.K_RETURN:  # Se o jogo ainda não começou e a tecla de espaço for pressionada
                 game_started = True  # Começa o jogo
             elif game_started:
                 if event.key == pygame.K_SPACE:
                     voando.shooting = True
-                    voando.speedy = 20
-            elif not game_started and event.key == pygame.K_SPACE:  # Se o jogo não começou e a tecla de espaço for pressionada
-                game_started = True  # Começa o jogo
+                    voando.speedy = 10
 
         elif event.type == pygame.KEYUP:
             if game_started and event.key == pygame.K_SPACE:
                 voando.shooting = False
-                voando.speedy -= 40  # Reduz a velocidade vertical
+                voando.speedy -= 20 # Reduz a velocidade vertical
 
     if not game_started:  # Se o jogo não começou, continua na tela inicial
         window.blit(background_i, (0, 0))
-        window.blit(logo, (WIDTH / 2 - logo.get_width() / 2, HEIGHT / 2 - logo.get_height() / 2))
+        window.blit(logo, (WIDTH / 2 - logo.get_width() / 2, HEIGHT/2 - logo.get_height() + 100 ))
+        window.blit(texto_inicial["texto_renderizado1"], (WIDTH // 2 - texto_inicial["texto_renderizado1"].get_width() // 2, texto_inicial["posicao_y_linha1"]+200))
+        window.blit(texto_inicial["texto_renderizado2"], (WIDTH // 2 - texto_inicial["texto_renderizado2"].get_width() // 2, texto_inicial["posicao_y_linha2"]+220))
         pygame.display.update()
         clock.tick(FPS)
         continue  # Volta ao início do loop para verificar eventos
@@ -224,7 +230,7 @@ while True:
     all_sprites.update()
 
     # Atualize a posição x do fundo para movê-lo para a esquerda
-    background_x -= 10
+    background_x -= 5
 
     # Verifique se o fundo original saiu completamente da tela
     if background_x <= -WIDTH:
