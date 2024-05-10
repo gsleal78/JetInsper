@@ -11,11 +11,13 @@ pygame.display.set_caption('JetInsper')
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
 from definindo_imagens import imagens, variaveis_dimensoes
 
-game = True
+game_started = False  # Define o estado inicial do jogo como False
 
 clock = pygame.time.Clock()
 FPS = 30
 
+background_i = imagens["background_i"]
+logo = imagens["logo"]
 background = imagens["TESTLAB"]
 BARRY = imagens["barry_v_img"]
 TIRO = imagens["tiro_img"]
@@ -138,7 +140,7 @@ class Laser(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(WIDTH, WIDTH + 200)
-        self.rect.bottom = random.randint(HEIGHT-variaveis_dimensoes["CHOQUE_HEIGHT"],HEIGHT)
+        self.rect.bottom = random.randint(0+variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
 
     def update(self):
         self.rect.x -= 10  # Movimento para a esquerda
@@ -164,26 +166,33 @@ criar_laser_timer = pygame.time.get_ticks()
 # Variável para controlar a posição x do fundo
 background_x = 0
 
-while game:
+# Loop principal do jogo
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            game = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                all_sprites.remove(voando)
-                BARRY = imagens["barry_a_img"]
-                voando = barry(BARRY, voando.rect.x, voando.rect.y)
-                all_sprites.add(voando)
-                voando.shooting = True
-                voando.speedy = 20  # Reduz a velocidade vertical
+            pygame.quit()
+            quit()
+        elif event.type == pygame.KEYDOWN:
+            if not game_started and event.key == pygame.K_SPACE:  # Se o jogo ainda não começou e a tecla de espaço for pressionada
+                game_started = True  # Começa o jogo
+            elif game_started:
+                if event.key == pygame.K_SPACE:
+                    voando.shooting = True
+                    voando.speedy = 20
+            elif not game_started and event.key == pygame.K_SPACE:  # Se o jogo não começou e a tecla de espaço for pressionada
+                game_started = True  # Começa o jogo
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                all_sprites.remove(voando)
-                BARRY = imagens["barry_v_img"]
-                voando = barry(BARRY, voando.rect.x, voando.rect.y)
-                all_sprites.add(voando)
-                voando.speedy -= 20  # Reduz a velocidade vertical
+        elif event.type == pygame.KEYUP:
+            if game_started and event.key == pygame.K_SPACE:
+                voando.shooting = False
+                voando.speedy -= 40  # Reduz a velocidade vertical
+
+    if not game_started:  # Se o jogo não começou, continua na tela inicial
+        window.blit(background_i, (0, 0))
+        window.blit(logo, (WIDTH / 2 - logo.get_width() / 2, HEIGHT / 2 - logo.get_height() / 2))
+        pygame.display.update()
+        clock.tick(FPS)
+        continue  # Volta ao início do loop para verificar eventos
 
     # Verificar se é hora de criar um novo conjunto de moedas
     if pygame.time.get_ticks() - criar_moedas_timer > 3000:  # 3000 milissegundos = 3 segundos
