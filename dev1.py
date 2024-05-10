@@ -25,6 +25,7 @@ LASER1 = imagens["CHOQUE1_img"]
 LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1,LASER2]
 
+
 class barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y):  
         pygame.sprite.Sprite.__init__(self)
@@ -199,6 +200,7 @@ while True:
                 game_started = True  # Começa o jogo
             elif game_started:
                 if event.key == pygame.K_SPACE:
+                    BARRY = imagens["barry_a_img"]
                     voando.shooting = True
                     voando.speedy = 10
 
