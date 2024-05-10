@@ -5,7 +5,7 @@ jogando = 1
 explodindo = 2
 estadoo = jogando
 
-
+'''
 if estadoo == jogando:
             # Verifica se houve colisão entre barry e laser amarelo
             hits = pygame.sprite.groupcollide(all_meteors, all_bullets, True, True, pygame.sprite.collide_mask)
@@ -48,11 +48,11 @@ if estadoo == jogando:
                     player = Ship(groups, assets)
                     all_sprites.add(player)
 
-
+'''
 
 ########################################################################################
 # Desenhando o score
-        text_surface = assets[SCORE_FONT].render("{:08d}".format(score), True, YELLOW)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH / 2,  10)
-        window.blit(text_surface, text_rect)
+text_surface = assets[SCORE_FONT].render("{:08d}".format(score), True, YELLOW)
+text_rect = text_surface.get_rect()
+text_rect.midtop = (WIDTH / 2,  10)
+window.blit(text_surface, text_rect)
