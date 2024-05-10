@@ -7,7 +7,7 @@ HEIGHT = 750
 
 
 
-#caminho da fonte do testo
+#caminho da fonte do texto
 
 caminho_fonte = "assets/fontes/PublicPixel-E447g.ttf"
 minha_fonte = pygame.font.Font(caminho_fonte, 36)
@@ -24,6 +24,10 @@ texto_inicial = {
     "posicao_y_linha1": posicao_y_linha1,
     "posicao_y_linha2": posicao_y_linha2
 }
+
+#TEXTO MOEDAS
+moeda_fonte = "assets/fontes/PressStart2P.ttf"
+fonte_moeda = pygame.font.Font(moeda_fonte,56)
 
 
 #planos de fundo 

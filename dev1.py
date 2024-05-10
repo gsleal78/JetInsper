@@ -9,7 +9,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
-from definindo_imagens import imagens, variaveis_dimensoes,texto_inicial
+from definindo_imagens import imagens, variaveis_dimensoes,texto_inicial,fonte_moeda
 
 game_started = False  # Define o estado inicial do jogo como False
 
@@ -24,10 +24,10 @@ TIRO = imagens["tiro_img"]
 LASER1 = imagens["CHOQUE1_img"]
 LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1,LASER2]
-
+moedas_coletadas = 0 
 
 class barry(pygame.sprite.Sprite):
-    def __init__(self, img, x, y):  
+    def __init__(self, img, x, y, moedas_coletadas):  
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
@@ -40,7 +40,7 @@ class barry(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()  
         self.shoot_delay = 75  
         self.shooting = False
-        self.moedas_coletadas = 0 
+        self.moedas_coletadas = moedas_coletadas  # A quantidade de moedas coletadas é passada como parâmetro
 
         # Criar uma máscara de colisão precisa
         self.mask = pygame.mask.from_surface(self.image)
@@ -76,7 +76,7 @@ class tiro(pygame.sprite.Sprite):
             self.kill()  
 
 all_sprites = pygame.sprite.Group()
-voando = barry(BARRY, 50,750)
+voando = barry(BARRY, 50,750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
 all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
 
@@ -96,7 +96,6 @@ class Moeda(pygame.sprite.Sprite):
         
         if pygame.sprite.collide_mask(self, voando):
             voando.moedas_coletadas += 1  # Aumenta a contagem de moedas
-            print("Moedas coletadas:", voando.moedas_coletadas)  # Imprime a quantidade de moedas coletadas
             self.kill()  # Remove a moeda
 
 num_conjuntos = 1
@@ -202,7 +201,7 @@ while True:
                 if event.key == pygame.K_SPACE:
                     all_sprites.remove(voando)
                     BARRY = imagens["barry_a_img"]
-                    voando = barry(BARRY, voando.rect.x, voando.rect.y)
+                    voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)  # Passando moedas_coletadas como parâmetro
                     all_sprites.add(voando)
                     voando.shooting = True
                     voando.speedy = 10
@@ -211,10 +210,10 @@ while True:
             if game_started and event.key == pygame.K_SPACE:
                 all_sprites.remove(voando)
                 BARRY = imagens["barry_v_img"]
-                voando = barry(BARRY, voando.rect.x, voando.rect.y)
+                voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)  # Passando moedas_coletadas como parâmetro
                 all_sprites.add(voando)
                 voando.shooting = False
-                voando.speedy -= 20 # Reduz a velocidade vertical
+                voando.speedy -= 10 # Reduz a velocidade vertical
 
     if not game_started:  # Se o jogo não começou, continua na tela inicial
         window.blit(background_i, (0, 0))
@@ -254,6 +253,11 @@ while True:
     lasersprite.update()  
     lasersprite.draw(window)  
     all_sprites.draw(window)   
+
+    text_surface = fonte_moeda.render("{:05d}".format(voando.moedas_coletadas), True, (10, 10, 10))
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (WIDTH / 2,  10)
+    window.blit(text_surface, text_rect)
 
     pygame.display.update()  
     clock.tick(FPS)
