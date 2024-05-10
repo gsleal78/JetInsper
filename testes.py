@@ -3,26 +3,29 @@ import random
 
 pygame.init()
 
+# Dimensões da janela
 WIDTH = 1200
 HEIGHT = 750
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
-# Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
+# Importando imagens e variáveis de dimensões
 from definindo_imagens import imagens, variaveis_dimensoes
 
-game_started = False  # Define o estado inicial do jogo como False
+# Estado inicial do jogo
+game_started = False
 
 clock = pygame.time.Clock()
 FPS = 30
 
+# Carregamento das imagens
 background_i = imagens["background_i"]
 logo = imagens["logo"]
 background = imagens["TESTLAB"]
 BARRY = imagens["barry_v_img"]
 TIRO = imagens["tiro_img"]
 
-class barry(pygame.sprite.Sprite):
+class Barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y):  
         pygame.sprite.Sprite.__init__(self)
 
@@ -36,6 +39,7 @@ class barry(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()  
         self.shoot_delay = 75  
         self.shooting = False
+        self.moedas_coletadas = 0  # Inicializa a contagem de moedas
 
     def update(self):
         self.rect.x += self.speedx
@@ -48,12 +52,12 @@ class barry(pygame.sprite.Sprite):
             self.shoot()
 
     def shoot(self):
-        new_bullet = tiro(TIRO, self.rect.bottom+75, self.rect.centerx)  
+        new_bullet = Tiro(TIRO, self.rect.bottom+75, self.rect.centerx)  
         all_sprites.add(new_bullet)  
         all_bullets.add(new_bullet)  
         self.last_shot = pygame.time.get_ticks()
 
-class tiro(pygame.sprite.Sprite): 
+class Tiro(pygame.sprite.Sprite): 
     def __init__(self,img, bottom, centerx): 
         pygame.sprite.Sprite.__init__(self)
         self.image = img
@@ -68,7 +72,7 @@ class tiro(pygame.sprite.Sprite):
             self.kill()  
 
 all_sprites = pygame.sprite.Group()
-voando = barry(BARRY, 50,750)
+voando = Barry(BARRY, 50,750)
 all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
 
@@ -85,6 +89,12 @@ class Moeda(pygame.sprite.Sprite):
         self.rect.x -= 10  # Movimento para a esquerda
         if self.rect.right < 0:  # Se a moeda sair completamente da tela
             self.kill()  # Remover a moeda
+
+        # Verificar colisão com o Barry
+        if pygame.sprite.collide_mask(self, voando):
+            voando.moedas_coletadas += 1  # Aumenta a contagem de moedas
+            print("Moedas coletadas:", voando.moedas_coletadas)  # Imprime a quantidade de moedas coletadas
+            self.kill()  # Remove a moeda
 
 num_conjuntos = 1
 all_moedas = pygame.sprite.Group()
@@ -116,19 +126,10 @@ def criar_moedas():
             (center_x + 20 + 3*variaveis_dimensoes["MOEDAS_WIDTH"], center_y + 20),
         ]
 
-        # Verificar se alguma posição coincide com a posição do laser
-        for laser in lasersprite:
-            for pos in positions:
-                if laser.rect.collidepoint(pos):
-                    break
-            else:
-                continue
-            break
-        else:
-            # Criando as moedas nas posições calculadas
-            for pos in positions:
-                moeda = Moeda(imagens["MOEDAS_img"], *pos)
-                all_moedas.add(moeda)
+        # Criando as moedas nas posições calculadas
+        for pos in positions:
+            moeda = Moeda(imagens["MOEDAS_img"], *pos)
+            all_moedas.add(moeda)
 
 # Variável para controlar o tempo para criar novas moedas
 criar_moedas_timer = pygame.time.get_ticks()
@@ -146,12 +147,6 @@ class Laser(pygame.sprite.Sprite):
         self.rect.x -= 10  # Movimento para a esquerda
         if self.rect.right < 0:  # Se o laser sair completamente da tela
             self.kill()  # Remover o laser
-
-        # Verificar colisão com as moedas
-        colisoes = pygame.sprite.spritecollide(self, all_moedas, False)
-        if colisoes:
-            for colisao in colisoes:
-                colisao.kill()  # Remover a moeda
 
 lasersprite = pygame.sprite.Group()
 
@@ -222,7 +217,7 @@ while True:
     all_moedas.draw(window)  
     lasersprite.update()  
     lasersprite.draw(window)  
-    all_sprites.draw(window)  
+    all_sprites.draw(window)   
 
     pygame.display.update()  
     clock.tick(FPS)

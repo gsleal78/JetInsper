@@ -234,7 +234,9 @@ while True:
     all_moedas.draw(window)  
     lasersprite.update()  
     lasersprite.draw(window)  
-    all_sprites.draw(window)  
+    all_sprites.draw(window)   
 
     pygame.display.update()  
     clock.tick(FPS)
+pygame.quit()
+ 
