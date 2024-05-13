@@ -21,17 +21,18 @@ eletric_sound = pygame.mixer.Sound('assets/snd/Electric Zap 001 Sound Effect (mp
 game_started = False  # Define o estado inicial do jogo como False
 
 clock = pygame.time.Clock()
-FPS = 120
+FPS = 60
 
 background_i = imagens["background_i"]
 logo = imagens["logo"]
-background = imagens["FUNDOSELVA"]
+background = imagens["TESTLAB"]
 BARRY = imagens["barry_v_img"]
 TIRO = imagens["tiro_img"]
 LASER1 = imagens["CHOQUE1_img"]
 LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1, LASER2]
 moedas_coletadas = 0
+i = 0 
 
 class barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y, moedas_coletadas):
@@ -42,8 +43,10 @@ class barry(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.rect.bottom = y + 75
+        self.max_speedy = 5  # Velocidade máxima vertical
+        self.acceleration = 0.2  # Aceleração vertical
         self.speedx = 0
-        self.speedy = 0
+        self.speedy = 0        
         self.last_shot = pygame.time.get_ticks()
         self.shoot_delay = 75
         self.shooting = False
@@ -54,19 +57,44 @@ class barry(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speedx
+        
+        # Atualizar velocidade vertical de acordo com a tecla pressionada
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP] and self.rect.top > 0:  # Verifica se a tecla de seta para cima está pressionada e se o personagem não está na parte superior da tela
+            self.speedy -= self.acceleration
+        elif keys[pygame.K_DOWN] and self.rect.bottom < HEIGHT:  # Verifica se a tecla de seta para baixo está pressionada e se o personagem não está na parte inferior da tela
+            self.speedy += self.acceleration
+        else:  # Se nenhuma tecla de movimento vertical estiver pressionada, reduz a velocidade vertical gradualmente até 0
+            if self.speedy > 5:
+                self.speedy = max(5, self.speedy - self.acceleration)
+            elif self.speedy < -5:
+                self.speedy = min(-5, self.speedy + self.acceleration)
+        
+        # Limita a velocidade vertical máxima
+        self.speedy = max(-self.max_speedy, min(self.max_speedy, self.speedy))
+        
+        # Atualiza a posição vertical
         self.rect.y -= self.speedy
+
+        # Garante que o sprite não saia da tela
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
         elif self.rect.top < 0:
             self.rect.top = 0
+
         if self.shooting and pygame.time.get_ticks() - self.last_shot > self.shoot_delay:
             self.shoot()
+
+
+
+
 
     def shoot(self):
         new_bullet = tiro(TIRO, self.rect.bottom + 75, self.rect.centerx)
         all_sprites.add(new_bullet)
         all_bullets.add(new_bullet)
         self.last_shot = pygame.time.get_ticks()
+
 
 class tiro(pygame.sprite.Sprite):
     def __init__(self, img, bottom, centerx):
@@ -75,7 +103,7 @@ class tiro(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = centerx
         self.rect.bottom = bottom
-        self.speedy = 10
+        self.speedy = 15
 
     def update(self):
         self.rect.y += self.speedy
@@ -220,7 +248,7 @@ while True:
                             pygame.quit()
                 fase_atingida = False
                 fase_atual += 1
-                background = imagens["TESTLAB"]  # Altera a imagem de fundo para a nova fase
+                background = imagens["FUNDOSELVA"]  # Altera a imagem de fundo para a nova fase
                 criar_moedas_timer = pygame.time.get_ticks()
                 criar_laser_timer = pygame.time.get_ticks()
                 background_x = 0
@@ -250,10 +278,7 @@ while True:
                     voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                     all_sprites.add(voando)
                     voando.shooting = True
-                    if fase_atual == 3: 
-                        voando.speedy += 10
-                    else: 
-                        voando.speedy +=5
+                    voando.speedy = 10
 
         elif event.type == pygame.KEYUP:
             if game_started and event.key == pygame.K_SPACE:
@@ -262,10 +287,7 @@ while True:
                 voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                 all_sprites.add(voando)
                 voando.shooting = False
-                if fase_atual == 3:
-                    voando.speedy -= 10
-                else: 
-                    voando.speedy -= 5
+                voando.speedy -= 10
         
 
     if not game_started:
@@ -292,8 +314,8 @@ while True:
             criar_moedas(10)
             criar_moedas_timer = pygame.time.get_ticks()
     else:
-        if pygame.time.get_ticks() - criar_moedas_timer > 800:
-            criar_moedas(13)
+        if pygame.time.get_ticks() - criar_moedas_timer > 1000:
+            criar_moedas(15)
             criar_moedas_timer = pygame.time.get_ticks()
 
     # Verificar se é hora de criar um novo laser
@@ -302,23 +324,19 @@ while True:
             criar_laser(5)
             criar_laser_timer = pygame.time.get_ticks()
     elif fase_atual == 2:
-        if pygame.time.get_ticks() - criar_laser_timer > 3000:
+        if pygame.time.get_ticks() - criar_laser_timer > 4000:
             criar_laser(10)
             criar_laser_timer = pygame.time.get_ticks()
     else:
-        if pygame.time.get_ticks() - criar_laser_timer > 1200:
-            criar_laser(13)
+        if pygame.time.get_ticks() - criar_laser_timer > 3000:
+            criar_laser(15)
             criar_laser_timer = pygame.time.get_ticks()
     
     # Verificar se a fase foi atingida
     if voando.moedas_coletadas >= 10 and not fase_atingida and fase_atual == 1:
         fase_atingida = True  
-        all_moedas.empty()
-        lasersprite.empty()
     elif voando.moedas_coletadas >= 50 and not fase_atingida and fase_atual == 2:
         fase_atingida = True  
-        all_moedas.empty()
-        lasersprite.empty()
 
     # Atualize a posição do personagem
     all_sprites.update()
@@ -326,10 +344,9 @@ while True:
     if fase_atual == 1:
         background_x -= 5
     elif fase_atual == 2:
-        background_x -= 10
+        background_x = -10
     else: 
-        background_x -= 13
-        
+        background_x = -15 
 
     # Verifique se o fundo original saiu completamente da tela
     if background_x <= -WIDTH:
