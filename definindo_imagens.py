@@ -58,6 +58,10 @@ barry_v_img = pygame.image.load('assets/img/boneco_voando_normal.png').convert_a
 barry_v_img = pygame.transform.scale(barry_v_img, (BARRY_WIDTH, BARRY_HEIGHT))
 barry_a_img = pygame.image.load('assets/img/Assim-que-ele-atira.png').convert_alpha()
 barry_a_img = pygame.transform.scale(barry_a_img, (BARRY_WIDTH, BARRY_HEIGHT))
+barry_ed_img = pygame.image.load('assets/img/BARRY CHOQUE deitado.png').convert_alpha()
+barry_ed_img = pygame.transform.scale(barry_ed_img, (BARRY_WIDTH, BARRY_HEIGHT))
+barry_ep_img = pygame.image.load('assets/img/BARRY CHOQUE.png').convert_alpha()
+barry_ep_img = pygame.transform.scale(barry_ep_img, (BARRY_WIDTH, BARRY_HEIGHT))
 
 #CIENTISTA
 CIENTISTA_WIDTH = 100
@@ -119,7 +123,9 @@ imagens = {
     "ALERTA_I_img": ALERTA_I_img,
     "ALERTA_P_img": ALERTA_P_img,
     "IMAGEM_TRANSICAO_2": IMAGEM_TRANSICAO_2,
-    "IMAGEM_TRANSICAO_1": IMAGEM_TRANSICAO_1
+    "IMAGEM_TRANSICAO_1": IMAGEM_TRANSICAO_1,
+    "barry_ed_img": barry_ed_img,
+    "barry_ep_img": barry_ep_img
 }
 variaveis_dimensoes = {
     "WIDTH": 1200,
