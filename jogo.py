@@ -161,7 +161,7 @@ class Laser(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(WIDTH, WIDTH + 200)
-        self.rect.bottom = random.randint(75+variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
+        self.rect.bottom = random.randint(100 + variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
         self.velocidade = velocidade
 
         # Criar uma máscara de colisão precisa
@@ -180,6 +180,7 @@ class Laser(pygame.sprite.Sprite):
 
         # Verificar colisão com o Barry
         if pygame.sprite.collide_mask(self, voando):
+            game_started = False  # Parar o jogo se houver colisão
             pygame.quit()
             quit()
 
@@ -215,7 +216,7 @@ while True:
                 criar_moedas_timer = pygame.time.get_ticks()
                 criar_laser_timer = pygame.time.get_ticks()
                 background_x = 0
-            else: 
+            else:
                 fase_atingida = False
                 fase_atual += 1
                 background = imagens["FUNDOPEDRA"]  # Altera a imagem de fundo para a nova fase
@@ -275,8 +276,8 @@ while True:
             criar_moedas(10)
             criar_moedas_timer = pygame.time.get_ticks()
     else:
-        if pygame.time.get_ticks() - criar_moedas_timer > 1500:
-            criar_moedas(10)
+        if pygame.time.get_ticks() - criar_moedas_timer > 800:
+            criar_moedas(13)
             criar_moedas_timer = pygame.time.get_ticks()
 
     # Verificar se é hora de criar um novo laser
@@ -289,8 +290,8 @@ while True:
             criar_laser(10)
             criar_laser_timer = pygame.time.get_ticks()
     else:
-        if pygame.time.get_ticks() - criar_laser_timer > 1000:
-            criar_laser(10)
+        if pygame.time.get_ticks() - criar_laser_timer > 1200:
+            criar_laser(13)
             criar_laser_timer = pygame.time.get_ticks()
     
     # Verificar se a fase foi atingida
@@ -311,7 +312,7 @@ while True:
     elif fase_atual == 2:
         background_x -= 10
     else: 
-        background_x -= 10
+        background_x -= 13
         
 
     # Verifique se o fundo original saiu completamente da tela

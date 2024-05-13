@@ -210,29 +210,13 @@ while True:
             pygame.quit()
         if fase_atingida:
             if fase_atual == 2:
-                tempo_inicial_transicao = pygame.time.get_ticks()  # Definir o tempo inicial da transição
-                window.blit(imagens["IMAGEM_TRANSICAO_1"], (0, 0))  # Exibe a imagem de transição
-                pygame.display.update()  # Atualiza a tela para mostrar a imagem de transição
-                tempo_total_transicao = 2000  # 2 segundos de transição
-                while pygame.time.get_ticks() - tempo_inicial_transicao < tempo_total_transicao:  # Mantém a imagem de transição pelo tempo definido
-                    for event in pygame.event.get():  # Verifica eventos para permitir a saída durante a transição
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
                 fase_atingida = False
                 fase_atual += 1
                 background = imagens["TESTLAB"]  # Altera a imagem de fundo para a nova fase
                 criar_moedas_timer = pygame.time.get_ticks()
                 criar_laser_timer = pygame.time.get_ticks()
                 background_x = 0
-            else: 
-                tempo_inicial_transicao = pygame.time.get_ticks()  # Definir o tempo inicial da transição
-                window.blit(imagens["IMAGEM_TRANSICAO_2"], (0, 0))  # Exibe a imagem de transição
-                pygame.display.update()  # Atualiza a tela para mostrar a imagem de transição
-                tempo_total_transicao = 2000  # 2 segundos de transição
-                while pygame.time.get_ticks() - tempo_inicial_transicao < tempo_total_transicao:  # Mantém a imagem de transição pelo tempo definido
-                    for event in pygame.event.get():  # Verifica eventos para permitir a saída durante a transição
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
+            else:
                 fase_atingida = False
                 fase_atual += 1
                 background = imagens["FUNDOPEDRA"]  # Altera a imagem de fundo para a nova fase
