@@ -10,7 +10,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
-from definindo_imagens import imagens, variaveis_dimensoes, texto_inicial, fonte_moeda
+from definindo_imagens import imagens, variaveis_dimensoes, textos, fonte_moeda
 
 # Carrega os sons do jogo
 pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
@@ -208,7 +208,8 @@ while GAME:
     if not jogo_acabou: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                jogo_acabou = False
+                break
             if fase_atingida:
                 if fase_atual == 2:
                     fase_atingida = False
@@ -220,7 +221,7 @@ while GAME:
                 else:
                     fase_atingida = False
                     fase_atual += 1
-                    background = imagens["FUNDOPEDRA"]  # Altera a imagem de fundo para a nova fase
+                    background = imagens["FUNDOFINAL"]  # Altera a imagem de fundo para a nova fase
                     criar_moedas_timer = pygame.time.get_ticks()
                     criar_laser_timer = pygame.time.get_ticks()
                     background_x = 0
@@ -255,12 +256,12 @@ while GAME:
         if not game_started:
             window.blit(background_i, (0, 0))
             window.blit(logo, (WIDTH / 2 - logo.get_width() / 2, HEIGHT / 2 - logo.get_height() + 100))
-            window.blit(texto_inicial["texto_renderizado1"],
-                        (WIDTH // 2 - texto_inicial["texto_renderizado1"].get_width() // 2,
-                        texto_inicial["posicao_y_linha1"] + 200))
-            window.blit(texto_inicial["texto_renderizado2"],
-                        (WIDTH // 2 - texto_inicial["texto_renderizado2"].get_width() // 2,
-                        texto_inicial["posicao_y_linha2"] + 220))
+            window.blit(textos["texto_renderizado1"],
+                        (WIDTH // 2 - textos["texto_renderizado1"].get_width() // 2,
+                        textos["posicao_y_linha1"] + 200))
+            window.blit(textos["texto_renderizado2"],
+                        (WIDTH // 2 - textos["texto_renderizado2"].get_width() // 2,
+                        textos["posicao_y_linha2"] + 220))
             pygame.display.update()
             clock.tick(FPS)
             continue
@@ -337,15 +338,13 @@ while GAME:
         pygame.display.update()
         clock.tick(FPS)
     else: 
-        # Se o jogo acabou, exiba a tela final
-        window.fill((0, 0, 0))
         window.blit(background_i, (0, 0))
-        # Aqui você pode adicionar texto, pontuações finais, etc.
+        window.blit(logo, (WIDTH / 2 - logo.get_width() / 2, HEIGHT / 2 - logo.get_height() + 100))
+        window.blit(textos["texto_renderizado2_1"], (WIDTH // 2 - textos["texto_renderizado2_1"].get_width() // 2,textos["posicao_y_linha2_1"] + 200))
+        window.blit(textos["texto_renderizado2_2"],(WIDTH // 2 - textos["texto_renderizado2_2"].get_width() // 2,textos["posicao_y_linha2_2"] + 220))
         pygame.display.update()
         clock.tick(FPS)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     pygame.quit()
