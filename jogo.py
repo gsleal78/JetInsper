@@ -208,8 +208,7 @@ while GAME:
     if not jogo_acabou: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                jogo_acabou = False
-                break
+                pygame.quit()
             if fase_atingida:
                 if fase_atual == 2:
                     fase_atingida = False
@@ -345,6 +344,8 @@ while GAME:
         pygame.display.update()
         clock.tick(FPS)
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     pygame.quit()
