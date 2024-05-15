@@ -21,11 +21,11 @@ eletric_sound = pygame.mixer.Sound('assets/snd/Electric Zap 001 Sound Effect (mp
 game_started = False  # Define o estado inicial do jogo como False
 
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 120
 
 background_i = imagens["background_i"]
 logo = imagens["logo"]
-background = imagens["TESTLAB"]
+background = imagens["FUNDOSELVA"]
 BARRY = imagens["barry_v_img"]
 TIRO = imagens["tiro_img"]
 LASER1 = imagens["CHOQUE1_img"]
@@ -75,7 +75,7 @@ class tiro(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = centerx
         self.rect.bottom = bottom
-        self.speedy = 15
+        self.speedy = 10
 
     def update(self):
         self.rect.y += self.speedy
@@ -88,16 +88,17 @@ all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
 
 class Moeda(pygame.sprite.Sprite):
-    def __init__(self, img, x, y):
+    def __init__(self, img, x, y, velocidade):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.velocidade = velocidade
 
     def update(self):
-        self.rect.x -= 5  # Movimento para a esquerda
+        self.rect.x -= self.velocidade  # Movimento para a esquerda
         if self.rect.right < 0:  # Se a moeda sair completamente da tela
             self.kill()  # Remover a moeda
 
@@ -110,7 +111,7 @@ num_conjuntos = 1
 all_moedas = pygame.sprite.Group()
 
 # Função para criar um novo conjunto de moedas
-def criar_moedas():
+def criar_moedas(velocidade):
     for _ in range(num_conjuntos):
         # Posição aleatória do centro do grupo de moedas
         center_x = random.randint(WIDTH, WIDTH + 200)
@@ -147,26 +148,27 @@ def criar_moedas():
         else:
             # Criando as moedas nas posições calculadas
             for pos in positions:
-                moeda = Moeda(imagens["MOEDAS_img"], *pos)
+                moeda = Moeda(imagens["MOEDAS_img"], *pos, velocidade)
                 all_moedas.add(moeda)
 
 # Variável para controlar o tempo para criar novas moedas
 criar_moedas_timer = pygame.time.get_ticks()
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, img):
+    def __init__(self, img, velocidade):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(WIDTH, WIDTH + 200)
         self.rect.bottom = random.randint(100 + variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
+        self.velocidade = velocidade
 
         # Criar uma máscara de colisão precisa
         self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
-        self.rect.x -= 5  # Movimento para a esquerda
+        self.rect.x -= self.velocidade  # Movimento para a esquerda
         if self.rect.right < 0:  # Se o laser sair completamente da tela
             self.kill()  # Remover o laser
 
@@ -185,9 +187,9 @@ class Laser(pygame.sprite.Sprite):
 lasersprite = pygame.sprite.Group()
 
 # Função para criar um novo laser
-def criar_laser():
+def criar_laser(velocidade):
     LASER = random.choice(LASER_LISTA)
-    laser = Laser(LASER)
+    laser = Laser(LASER, velocidade)
     lasersprite.add(laser)
 
 # Variável para controlar o tempo para criar novos lasers
@@ -206,7 +208,22 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            quit()
+        if fase_atingida:
+            if fase_atual == 2:
+                fase_atingida = False
+                fase_atual += 1
+                background = imagens["TESTLAB"]  # Altera a imagem de fundo para a nova fase
+                criar_moedas_timer = pygame.time.get_ticks()
+                criar_laser_timer = pygame.time.get_ticks()
+                background_x = 0
+            else:
+                fase_atingida = False
+                fase_atual += 1
+                background = imagens["FUNDOPEDRA"]  # Altera a imagem de fundo para a nova fase
+                criar_moedas_timer = pygame.time.get_ticks()
+                criar_laser_timer = pygame.time.get_ticks()
+                background_x = 0
+
         elif event.type == pygame.KEYDOWN:
             if not game_started and event.key == pygame.K_RETURN:
                 game_started = True
@@ -217,7 +234,10 @@ while True:
                     voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                     all_sprites.add(voando)
                     voando.shooting = True
-                    voando.speedy = 10
+                    if fase_atual == 3: 
+                        voando.speedy += 10
+                    else: 
+                        voando.speedy +=5
 
         elif event.type == pygame.KEYUP:
             if game_started and event.key == pygame.K_SPACE:
@@ -226,7 +246,11 @@ while True:
                 voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                 all_sprites.add(voando)
                 voando.shooting = False
-                voando.speedy -= 10
+                if fase_atual == 3:
+                    voando.speedy -= 10
+                else: 
+                    voando.speedy -= 5
+        
 
     if not game_started:
         window.blit(background_i, (0, 0))
@@ -242,46 +266,54 @@ while True:
         continue
 
     # Verificar se é hora de criar um novo conjunto de moedas
-    if pygame.time.get_ticks() - criar_moedas_timer > 3000:
-        criar_moedas()
-        criar_moedas_timer = pygame.time.get_ticks()
+
+    if fase_atual == 1:
+        if pygame.time.get_ticks() - criar_moedas_timer > 3000:
+            criar_moedas(5)
+            criar_moedas_timer = pygame.time.get_ticks()
+    elif fase_atual == 2:
+        if pygame.time.get_ticks() - criar_moedas_timer > 2000:
+            criar_moedas(10)
+            criar_moedas_timer = pygame.time.get_ticks()
+    else:
+        if pygame.time.get_ticks() - criar_moedas_timer > 800:
+            criar_moedas(13)
+            criar_moedas_timer = pygame.time.get_ticks()
 
     # Verificar se é hora de criar um novo laser
-    if pygame.time.get_ticks() - criar_laser_timer > 5000:
-        criar_laser()
-        criar_laser_timer = pygame.time.get_ticks()
-
+    if fase_atual == 1:
+        if pygame.time.get_ticks() - criar_laser_timer > 5000:
+            criar_laser(5)
+            criar_laser_timer = pygame.time.get_ticks()
+    elif fase_atual == 2:
+        if pygame.time.get_ticks() - criar_laser_timer > 3000:
+            criar_laser(10)
+            criar_laser_timer = pygame.time.get_ticks()
+    else:
+        if pygame.time.get_ticks() - criar_laser_timer > 1200:
+            criar_laser(13)
+            criar_laser_timer = pygame.time.get_ticks()
+    
     # Verificar se a fase foi atingida
-    if voando.moedas_coletadas >= 100 and not fase_atingida:
-        fase_atingida = True
-
-    # Se a fase foi atingida, exibir a imagem de transição por 2 segundos
-    if fase_atingida:
-        window.blit(imagens["IMAGEM_TRANSIÇAO_1"], (0, 0))  # Exibe a imagem de transição
-        pygame.display.update()  # Atualiza a tela para mostrar a imagem de transição
-
-        # Define o momento atual para controlar a duração da transição
-        tempo_inicial_transicao = pygame.time.get_ticks()
-        tempo_total_transicao = 2000  # 2 segundos de transição
-        while pygame.time.get_ticks() - tempo_inicial_transicao < tempo_total_transicao:  # Mantém a imagem de transição pelo tempo definido
-            for event in pygame.event.get():  # Verifica eventos para permitir a saída durante a transição
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-
-        # Após a transição, redefine as variáveis para a nova fase
-        fase_atingida = False
-        fase_atual += 1
-        background = imagens["FUNDOPEDRA"]  # Altera a imagem de fundo para a nova fase
-        criar_moedas_timer = pygame.time.get_ticks()
-        criar_laser_timer = pygame.time.get_ticks()
-        background_x = 0
+    if voando.moedas_coletadas >= 10 and not fase_atingida and fase_atual == 1:
+        fase_atingida = True  
+        all_moedas.empty()
+        lasersprite.empty()
+    elif voando.moedas_coletadas >= 50 and not fase_atingida and fase_atual == 2:
+        fase_atingida = True  
+        all_moedas.empty()
+        lasersprite.empty()
 
     # Atualize a posição do personagem
     all_sprites.update()
 
-    # Atualize a posição x do fundo para movê-lo para a esquerda
-    background_x -= 5
+    if fase_atual == 1:
+        background_x -= 5
+    elif fase_atual == 2:
+        background_x -= 10
+    else: 
+        background_x -= 13
+        
 
     # Verifique se o fundo original saiu completamente da tela
     if background_x <= -WIDTH:

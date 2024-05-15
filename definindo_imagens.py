@@ -41,7 +41,7 @@ logo = pygame.image.load('assets/img/logo.webp').convert_alpha()
 logo = pygame.transform.scale(logo, (WIDTH-200, HEIGHT-300))
 TESTLAB = pygame.image.load('assets/img/plano de fundo testlab.jpg').convert()
 TESTLAB = pygame.transform.scale(TESTLAB, (WIDTH, HEIGHT))
-FUNDOPEDRA = pygame.image.load('assets/img/plano de fundo pedra.webp').convert()
+FUNDOPEDRA = pygame.image.load('assets/img/fundo pedra fogo.png').convert()
 FUNDOPEDRA = pygame.transform.scale(FUNDOPEDRA, (WIDTH, HEIGHT))
 FUNDOSELVA = pygame.image.load('assets/img/plano de fundo selva.webp').convert()
 FUNDOSELVA = pygame.transform.scale(FUNDOSELVA, (WIDTH, HEIGHT))
@@ -58,6 +58,10 @@ barry_v_img = pygame.image.load('assets/img/boneco_voando_normal.png').convert_a
 barry_v_img = pygame.transform.scale(barry_v_img, (BARRY_WIDTH, BARRY_HEIGHT))
 barry_a_img = pygame.image.load('assets/img/Assim-que-ele-atira.png').convert_alpha()
 barry_a_img = pygame.transform.scale(barry_a_img, (BARRY_WIDTH, BARRY_HEIGHT))
+barry_ed_img = pygame.image.load('assets/img/BARRY CHOQUE deitado.png').convert_alpha()
+barry_ed_img = pygame.transform.scale(barry_ed_img, (BARRY_WIDTH, BARRY_HEIGHT))
+barry_ep_img = pygame.image.load('assets/img/BARRY CHOQUE.png').convert_alpha()
+barry_ep_img = pygame.transform.scale(barry_ep_img, (BARRY_WIDTH, BARRY_HEIGHT))
 
 #CIENTISTA
 CIENTISTA_WIDTH = 100
@@ -119,7 +123,9 @@ imagens = {
     "ALERTA_I_img": ALERTA_I_img,
     "ALERTA_P_img": ALERTA_P_img,
     "IMAGEM_TRANSICAO_2": IMAGEM_TRANSICAO_2,
-    "IMAGEM_TRANSICAO_1": IMAGEM_TRANSICAO_1
+    "IMAGEM_TRANSICAO_1": IMAGEM_TRANSICAO_1,
+    "barry_ed_img": barry_ed_img,
+    "barry_ep_img": barry_ep_img
 }
 variaveis_dimensoes = {
     "WIDTH": 1200,

@@ -21,18 +21,17 @@ eletric_sound = pygame.mixer.Sound('assets/snd/Electric Zap 001 Sound Effect (mp
 game_started = False  # Define o estado inicial do jogo como False
 
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 120
 
 background_i = imagens["background_i"]
 logo = imagens["logo"]
-background = imagens["TESTLAB"]
+background = imagens["FUNDOSELVA"]
 BARRY = imagens["barry_v_img"]
 TIRO = imagens["tiro_img"]
 LASER1 = imagens["CHOQUE1_img"]
 LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1, LASER2]
 moedas_coletadas = 0
-i = 0 
 
 class barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y, moedas_coletadas):
@@ -76,7 +75,7 @@ class tiro(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = centerx
         self.rect.bottom = bottom
-        self.speedy = 15
+        self.speedy = 10
 
     def update(self):
         self.rect.y += self.speedy
@@ -211,29 +210,13 @@ while True:
             pygame.quit()
         if fase_atingida:
             if fase_atual == 2:
-                tempo_inicial_transicao = pygame.time.get_ticks()  # Definir o tempo inicial da transição
-                window.blit(imagens["IMAGEM_TRANSICAO_1"], (0, 0))  # Exibe a imagem de transição
-                pygame.display.update()  # Atualiza a tela para mostrar a imagem de transição
-                tempo_total_transicao = 2000  # 2 segundos de transição
-                while pygame.time.get_ticks() - tempo_inicial_transicao < tempo_total_transicao:  # Mantém a imagem de transição pelo tempo definido
-                    for event in pygame.event.get():  # Verifica eventos para permitir a saída durante a transição
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
                 fase_atingida = False
                 fase_atual += 1
-                background = imagens["FUNDOSELVA"]  # Altera a imagem de fundo para a nova fase
+                background = imagens["TESTLAB"]  # Altera a imagem de fundo para a nova fase
                 criar_moedas_timer = pygame.time.get_ticks()
                 criar_laser_timer = pygame.time.get_ticks()
                 background_x = 0
-            else: 
-                tempo_inicial_transicao = pygame.time.get_ticks()  # Definir o tempo inicial da transição
-                window.blit(imagens["IMAGEM_TRANSICAO_2"], (0, 0))  # Exibe a imagem de transição
-                pygame.display.update()  # Atualiza a tela para mostrar a imagem de transição
-                tempo_total_transicao = 2000  # 2 segundos de transição
-                while pygame.time.get_ticks() - tempo_inicial_transicao < tempo_total_transicao:  # Mantém a imagem de transição pelo tempo definido
-                    for event in pygame.event.get():  # Verifica eventos para permitir a saída durante a transição
-                        if event.type == pygame.QUIT:
-                            pygame.quit()
+            else:
                 fase_atingida = False
                 fase_atual += 1
                 background = imagens["FUNDOPEDRA"]  # Altera a imagem de fundo para a nova fase
@@ -251,7 +234,10 @@ while True:
                     voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                     all_sprites.add(voando)
                     voando.shooting = True
-                    voando.speedy = 10
+                    if fase_atual == 3: 
+                        voando.speedy += 10
+                    else: 
+                        voando.speedy +=5
 
         elif event.type == pygame.KEYUP:
             if game_started and event.key == pygame.K_SPACE:
@@ -260,7 +246,10 @@ while True:
                 voando = barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                 all_sprites.add(voando)
                 voando.shooting = False
-                voando.speedy -= 10
+                if fase_atual == 3:
+                    voando.speedy -= 10
+                else: 
+                    voando.speedy -= 5
         
 
     if not game_started:
@@ -287,8 +276,8 @@ while True:
             criar_moedas(10)
             criar_moedas_timer = pygame.time.get_ticks()
     else:
-        if pygame.time.get_ticks() - criar_moedas_timer > 1000:
-            criar_moedas(15)
+        if pygame.time.get_ticks() - criar_moedas_timer > 800:
+            criar_moedas(13)
             criar_moedas_timer = pygame.time.get_ticks()
 
     # Verificar se é hora de criar um novo laser
@@ -297,19 +286,23 @@ while True:
             criar_laser(5)
             criar_laser_timer = pygame.time.get_ticks()
     elif fase_atual == 2:
-        if pygame.time.get_ticks() - criar_laser_timer > 4000:
+        if pygame.time.get_ticks() - criar_laser_timer > 3000:
             criar_laser(10)
             criar_laser_timer = pygame.time.get_ticks()
     else:
-        if pygame.time.get_ticks() - criar_laser_timer > 3000:
-            criar_laser(15)
+        if pygame.time.get_ticks() - criar_laser_timer > 1200:
+            criar_laser(13)
             criar_laser_timer = pygame.time.get_ticks()
     
     # Verificar se a fase foi atingida
     if voando.moedas_coletadas >= 10 and not fase_atingida and fase_atual == 1:
         fase_atingida = True  
+        all_moedas.empty()
+        lasersprite.empty()
     elif voando.moedas_coletadas >= 50 and not fase_atingida and fase_atual == 2:
         fase_atingida = True  
+        all_moedas.empty()
+        lasersprite.empty()
 
     # Atualize a posição do personagem
     all_sprites.update()
@@ -317,9 +310,10 @@ while True:
     if fase_atual == 1:
         background_x -= 5
     elif fase_atual == 2:
-        background_x = -10
+        background_x -= 10
     else: 
-        background_x = -15 
+        background_x -= 13
+        
 
     # Verifique se o fundo original saiu completamente da tela
     if background_x <= -WIDTH:
