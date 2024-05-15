@@ -17,13 +17,26 @@ texto_renderizado1 = minha_fonte.render(texto_linha1, True, (0, 100, 255))
 texto_renderizado2 = minha_fonte.render(texto_linha2, True, (0, 100, 255))
 posicao_y_linha1 = HEIGHT // 2 - texto_renderizado1.get_height()
 posicao_y_linha2 = HEIGHT // 2
+minha_fonte = pygame.font.Font(caminho_fonte, 36)
+texto_linha2_1 = "Aperte ESPACO para continuar jogando"
+texto_linha2_2 = "ou ENTER para sair"
+texto_renderizado2_1 = minha_fonte.render(texto_linha2_1, True, (0, 100, 255))
+texto_renderizado2_2 = minha_fonte.render(texto_linha2_2, True, (0, 100, 255))
+posicao_y_linha2_1 = HEIGHT // 2 - texto_renderizado2_1.get_height()
+posicao_y_linha2_2 = HEIGHT // 2
 
-texto_inicial = {
+textos = {
     "texto_renderizado1": texto_renderizado1,
     "texto_renderizado2": texto_renderizado2,
     "posicao_y_linha1": posicao_y_linha1,
-    "posicao_y_linha2": posicao_y_linha2
+    "posicao_y_linha2": posicao_y_linha2,
+    "texto_renderizado2_1": texto_renderizado1,
+    "texto_renderizado2_2": texto_renderizado2,
+    "posicao_y_linha2_1": posicao_y_linha2_1,
+    "posicao_y_linha2_2": posicao_y_linha2_2
+
 }
+
 
 #TEXTO MOEDAS
 moeda_fonte = "assets/fontes/PressStart2P.ttf"
