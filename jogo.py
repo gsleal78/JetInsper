@@ -208,7 +208,7 @@ while GAME:
     if not jogo_acabou: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                jogo_acabou = False
                 break
             if fase_atingida:
                 if fase_atual == 2:
