@@ -45,6 +45,8 @@ FUNDOPEDRA = pygame.image.load('assets/img/fundo pedra fogo.png').convert()
 FUNDOPEDRA = pygame.transform.scale(FUNDOPEDRA, (WIDTH, HEIGHT))
 FUNDOSELVA = pygame.image.load('assets/img/plano de fundo selva.webp').convert()
 FUNDOSELVA = pygame.transform.scale(FUNDOSELVA, (WIDTH, HEIGHT))
+FUNDOFINAL = pygame.image.load('assets/img/fundo_final.jpg')
+FUNDOFINAL = pygame.transform.scale(FUNDOFINAL, (WIDTH, HEIGHT))
 IMAGEM_TRANSICAO_1 = pygame.image.load('assets/img/tela inicial.webp').convert()
 IMAGEM_TRANSICAO_1 = pygame.transform.scale(IMAGEM_TRANSICAO_1, (WIDTH, HEIGHT))
 IMAGEM_TRANSICAO_2 = pygame.image.load('assets/img/tela inicial.webp').convert()
@@ -112,6 +114,7 @@ imagens = {
     "TESTLAB": TESTLAB,
     "FUNDOPEDRA": FUNDOPEDRA,
     "FUNDOSELVA": FUNDOSELVA,
+    "FUNDOFINAL": FUNDOFINAL,
     "barry_v_img": barry_v_img,
     "barry_a_img": barry_a_img,
     "CIENTISTA_img": CIENTISTA_img,
