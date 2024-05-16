@@ -2,6 +2,24 @@ import pygame
 import random
 from definindo_imagens import imagens,variaveis_dimensoes,WIDTH,HEIGHT
 
+TIRO = imagens["tiro_img"]
+BARRY = imagens["barry_v_img"]
+LASER1 = imagens["CHOQUE1_img"]
+LASER2 = imagens["CHOQUE2_img"]
+LASER_LISTA = [LASER1, LASER2]
+
+moedas_coletadas = 0
+num_conjuntos = 1
+
+# Carrega os sons do jogo
+pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
+pygame.mixer.music.set_volume(0.4)
+coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥 (mp3cut.net).mp3')
+
+all_sprites = pygame.sprite.Group()
+all_bullets = pygame.sprite.Group()
+lasersprite = pygame.sprite.Group()
+all_moedas = pygame.sprite.Group()
 
 class barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y, moedas_coletadas):
@@ -36,6 +54,9 @@ class barry(pygame.sprite.Sprite):
         all_sprites.add(new_bullet)
         all_bullets.add(new_bullet)
         self.last_shot = pygame.time.get_ticks()
+
+voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
+all_sprites.add(voando)
 
 class tiro(pygame.sprite.Sprite):
     def __init__(self, img, bottom, centerx):
@@ -149,3 +170,8 @@ def criar_laser(velocidade):
 
 
 criar_laser_timer = pygame.time.get_ticks()
+
+classes = {'barry':barry,
+           'tiro':tiro,
+           'Moeda':Moeda,
+           'Laser':Laser}
