@@ -56,8 +56,6 @@ class barry(pygame.sprite.Sprite):
         all_bullets.add(new_bullet)
         self.last_shot = pygame.time.get_ticks()
 
-voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
-all_sprites.add(voando)
 
 class tiro(pygame.sprite.Sprite):
     def __init__(self, img, bottom, centerx):
@@ -168,7 +166,7 @@ class Laser(pygame.sprite.Sprite):
         # Verificar colisão com o Barry
         if pygame.sprite.collide_mask(self, voando):
             global jogo_acabou
-            jogo_acabou = True  # Parar o jogo se houver colisão
+            jogo_acabou = True 
 
 
 def criar_laser(velocidade):
