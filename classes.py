@@ -24,6 +24,7 @@ all_moedas = pygame.sprite.Group()
 class barry(pygame.sprite.Sprite):
     def __init__(self, img, x, y, moedas_coletadas):
         pygame.sprite.Sprite.__init__(self)
+
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = x

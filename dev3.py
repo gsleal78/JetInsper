@@ -9,7 +9,7 @@ HEIGHT = 750
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
-# Aqui importamos as imagens e variáveis de dimensões dos arquivos
+# Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
 from definindo_imagens import imagens, variaveis_dimensoes, textos, fonte_moeda
 from classes import classes
 
@@ -40,12 +40,10 @@ tiro = classes['tiro']
 Moeda = classes['Moeda']
 Laser = classes['Laser']
 
-all_sprites = pygame.sprite.Group()
 voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
+all_sprites = pygame.sprite.Group()
 all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
-
-
 num_conjuntos = 1
 all_moedas = pygame.sprite.Group()
 
@@ -92,7 +90,6 @@ def criar_moedas(velocidade):
 
 # Variável para controlar o tempo para criar novas moedas
 criar_moedas_timer = pygame.time.get_ticks()
-
 
 lasersprite = pygame.sprite.Group()
 
