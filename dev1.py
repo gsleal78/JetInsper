@@ -10,7 +10,8 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
-from definindo_imagens import imagens, variaveis_dimensoes, textos, fonte_moeda
+from definindo_imagens import *
+from classes import *
 
 # Carrega os sons do jogo
 pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
@@ -34,80 +35,12 @@ LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1, LASER2]
 moedas_coletadas = 0
 
-class barry(pygame.sprite.Sprite):
-    def __init__(self, img, x, y, moedas_coletadas):
-        pygame.sprite.Sprite.__init__(self)
 
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.rect.bottom = y + 75
-        self.speedx = 0
-        self.speedy = 0
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_delay = 75
-        self.shooting = False
-        self.moedas_coletadas = moedas_coletadas  # A quantidade de moedas coletadas é passada como parâmetro
 
-        # Criar uma máscara de colisão precisa
-        self.mask = pygame.mask.from_surface(self.image)
-
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y -= self.speedy
-        if self.rect.bottom > HEIGHT:
-            self.rect.bottom = HEIGHT
-        elif self.rect.top < 0:
-            self.rect.top = 0
-        if self.shooting and pygame.time.get_ticks() - self.last_shot > self.shoot_delay:
-            self.shoot()
-
-    def shoot(self):
-        new_bullet = tiro(TIRO, self.rect.bottom + 75, self.rect.centerx)
-        all_sprites.add(new_bullet)
-        all_bullets.add(new_bullet)
-        self.last_shot = pygame.time.get_ticks()
-
-class tiro(pygame.sprite.Sprite):
-    def __init__(self, img, bottom, centerx):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.centerx = centerx
-        self.rect.bottom = bottom
-        self.speedy = 10
-
-    def update(self):
-        self.rect.y += self.speedy
-        if self.rect.bottom < 0:
-            self.kill()
-
-all_sprites = pygame.sprite.Group()
 voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
+all_sprites = pygame.sprite.Group()
 all_sprites.add(voando)
 all_bullets = pygame.sprite.Group()
-
-class Moeda(pygame.sprite.Sprite):
-    def __init__(self, img, x, y, velocidade):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.velocidade = velocidade
-
-    def update(self):
-        self.rect.x -= self.velocidade  # Movimento para a esquerda
-        if self.rect.right < 0:  # Se a moeda sair completamente da tela
-            self.kill()  # Remover a moeda
-
-        if pygame.sprite.collide_mask(self, voando):
-            voando.moedas_coletadas += 1  # Aumenta a contagem de moedas
-            self.kill()  # Remove a moeda
-            coin_sound.play()
-
 num_conjuntos = 1
 all_moedas = pygame.sprite.Group()
 
@@ -155,35 +88,6 @@ def criar_moedas(velocidade):
 # Variável para controlar o tempo para criar novas moedas
 criar_moedas_timer = pygame.time.get_ticks()
 
-class Laser(pygame.sprite.Sprite):
-    def __init__(self, img, velocidade):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = random.randint(WIDTH, WIDTH + 200)
-        self.rect.bottom = random.randint(100 + variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
-        self.velocidade = velocidade
-
-        # Criar uma máscara de colisão precisa
-        self.mask = pygame.mask.from_surface(self.image)
-
-    def update(self):
-        self.rect.x -= self.velocidade  # Movimento para a esquerda
-        if self.rect.right < 0:  # Se o laser sair completamente da tela
-            self.kill()  # Remover o laser
-
-        # Verificar colisão com as moedas
-        colisoes = pygame.sprite.spritecollide(self, all_moedas, False)
-        if colisoes:
-            for colisao in colisoes:
-                colisao.kill()  # Remover a moeda
-
-        # Verificar colisão com o Barry
-        if pygame.sprite.collide_mask(self, voando):
-            global jogo_acabou
-            jogo_acabou = True  # Parar o jogo se houver colisão
-
 lasersprite = pygame.sprite.Group()
 
 # Função para criar um novo laser
@@ -208,8 +112,7 @@ while GAME:
     if not jogo_acabou: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                jogo_acabou = False
-                break
+                pygame.quit()
             if fase_atingida:
                 if fase_atual == 2:
                     fase_atingida = False
@@ -348,7 +251,6 @@ while GAME:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     pygame.quit()
-                    GAME = False
                 elif event.key == pygame.K_SPACE:
                     jogo_acabou = False
                     fase_atingida = False
