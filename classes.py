@@ -74,6 +74,13 @@ class tiro(pygame.sprite.Sprite):
             self.kill()
 
 
+voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
+all_sprites = pygame.sprite.Group()
+all_sprites.add(voando)
+all_bullets = pygame.sprite.Group()
+num_conjuntos = 1
+all_moedas = pygame.sprite.Group()
+
 class Moeda(pygame.sprite.Sprite):
     def __init__(self, img, x, y, velocidade):
         pygame.sprite.Sprite.__init__(self)
