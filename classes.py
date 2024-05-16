@@ -171,6 +171,7 @@ def criar_laser(velocidade):
 
 
 criar_laser_timer = pygame.time.get_ticks()
+criar_moedas_timer = pygame.time.get_ticks()
 
 classes = {'barry':barry,
            'tiro':tiro,

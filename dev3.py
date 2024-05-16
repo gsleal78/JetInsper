@@ -115,8 +115,7 @@ while GAME:
     if not jogo_acabou: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                jogo_acabou = False
-                break
+                pygame.quit()
             if fase_atingida:
                 if fase_atual == 2:
                     fase_atingida = False
@@ -255,7 +254,6 @@ while GAME:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     pygame.quit()
-                    GAME = False
                 elif event.key == pygame.K_SPACE:
                     jogo_acabou = False
                     fase_atingida = False
