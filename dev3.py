@@ -10,8 +10,8 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('JetInsper')
 
 # Aqui importamos as imagens e variáveis de dimensões do arquivo definindo_imagens.py
-from definindo_imagens import imagens, variaveis_dimensoes, textos, fonte_moeda
-from classes import classes
+from definindo_imagens import *
+from classes import *
 
 # Carrega os sons do jogo
 pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
@@ -35,10 +35,7 @@ LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1, LASER2]
 moedas_coletadas = 0
 
-barry = classes['barry']
-tiro = classes['tiro']
-Moeda = classes['Moeda']
-Laser = classes['Laser']
+
 
 voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
 all_sprites = pygame.sprite.Group()
