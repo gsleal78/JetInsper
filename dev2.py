@@ -181,6 +181,8 @@ class Laser(pygame.sprite.Sprite):
 
         # Verificar colisão com o Barry
         if pygame.sprite.collide_mask(self, voando):
+            voando = imagens["barry_ep_img"]
+            
             global jogo_acabou
             jogo_acabou = True  # Parar o jogo se houver colisão
 
@@ -208,8 +210,7 @@ while GAME:
     if not jogo_acabou: 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                jogo_acabou = False
-                break
+                pygame.quit()
             if fase_atingida:
                 if fase_atual == 2:
                     fase_atingida = False
@@ -344,8 +345,6 @@ while GAME:
         window.blit(textos["texto_renderizado2_2"],(WIDTH // 2 - textos["texto_renderizado2_2"].get_width() // 2,textos["posicao_y_linha2_2"] + 220))
         pygame.display.update()
         clock.tick(FPS)
-        continue
-
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:

@@ -25,27 +25,11 @@ jogo_acabou = False  # Controla se o jogo acabou ou não
 clock = pygame.time.Clock()
 FPS = 120
 
-background_i = imagens["background_i"]
-logo = imagens["logo"]
-background = imagens["FUNDOSELVA"]
-BARRY = imagens["barry_v_img"]
-TIRO = imagens["tiro_img"]
-LASER1 = imagens["CHOQUE1_img"]
-LASER2 = imagens["CHOQUE2_img"]
-LASER_LISTA = [LASER1, LASER2]
-moedas_coletadas = 0
 
 barry = classes['barry']
 tiro = classes['tiro']
 Moeda = classes['Moeda']
 Laser = classes['Laser']
-
-voando = barry(BARRY, 50, 750, moedas_coletadas)  # Passando moedas_coletadas como parâmetro
-all_sprites = pygame.sprite.Group()
-all_sprites.add(voando)
-all_bullets = pygame.sprite.Group()
-num_conjuntos = 1
-all_moedas = pygame.sprite.Group()
 
 # Função para criar um novo conjunto de moedas
 def criar_moedas(velocidade):

@@ -64,7 +64,11 @@ IMAGEM_TRANSICAO_1 = pygame.image.load('assets/img/tela inicial.webp').convert()
 IMAGEM_TRANSICAO_1 = pygame.transform.scale(IMAGEM_TRANSICAO_1, (WIDTH, HEIGHT))
 IMAGEM_TRANSICAO_2 = pygame.image.load('assets/img/tela inicial.webp').convert()
 IMAGEM_TRANSICAO_2 = pygame.transform.scale(IMAGEM_TRANSICAO_2, (WIDTH, HEIGHT))
+<<<<<<< HEAD
 
+=======
+background = FUNDOSELVA
+>>>>>>> 6016221a41b33790307908aea729b8ce0b43ae06
 
 #BARRY
 BARRY_WIDTH = 100
