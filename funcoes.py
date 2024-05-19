@@ -11,7 +11,7 @@ def verificar_colisao_com_todos(sprite, grupos):
     return False
 
 def criar_moedas(velocidade):
-    max_tentativas = 50  # Limite de tentativas
+    max_tentativas = 10  # Limite de tentativas
     tentativas = 0
     
     while tentativas < max_tentativas: 
@@ -54,7 +54,7 @@ def criar_moedas(velocidade):
             break
 
 def criar_laser(velocidade):
-    max_tentativas = 50  # Limite de tentativas
+    max_tentativas = 10  # Limite de tentativas
     tentativas = 0
 
     while tentativas < max_tentativas: 
@@ -70,7 +70,7 @@ def criar_laser(velocidade):
             break
 
 def criar_raposa(velocidade): 
-    max_tentativas = 50  # Limite de tentativas
+    max_tentativas = 10  # Limite de tentativas
     tentativas = 0
 
     while tentativas < max_tentativas: 
@@ -85,7 +85,7 @@ def criar_raposa(velocidade):
             break
 
 def criar_bob(velocidade): 
-    max_tentativas = 50  # Limite de tentativas
+    max_tentativas = 10  # Limite de tentativas
     tentativas = 0
 
     while tentativas < max_tentativas:
