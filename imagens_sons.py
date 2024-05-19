@@ -1,17 +1,19 @@
-import pygame 
-import random
-from config import HEIGHT, WIDTH
+import pygame # Importa a biblioteca Pygame para criação do jogo
+import random # Importa o módulo random para geração de números aleatórios
+from config import HEIGHT, WIDTH # Importa as configurações de altura e largura da janela do jogo do arquivo config
 
 
-
+# Carrega e configura os efeitos sonoros do jogo
 pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
-pygame.mixer.music.set_volume(0.4)
+pygame.mixer.music.set_volume(0.4)  # Define o volume da música
 coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥 (mp3cut.net).mp3')
 eletric_sound = pygame.mixer.Sound('assets/snd/eletrecutado.mp3')
 som_morte = pygame.mixer.Sound('assets/snd/som morrendo.mp3')
 som_tiro = pygame.mixer.Sound('assets/snd/Fortnite Scar Sound Effect (mp3cut.net).mp3')
 hod_rider = pygame.mixer.Sound('assets/snd/hogrider.mp3')
 som_bob = pygame.mixer.Sound('assets/snd/som_bob.mp3')
+
+# Cria um dicionário para armazenar os efeitos sonoros
 sons = {
     "coin_sound": coin_sound,
     "eletric_sound": eletric_sound,
@@ -21,22 +23,36 @@ sons = {
     "som_bob": som_bob
 }
 
-caminho_fonte = "assets/fontes/PublicPixel-E447g.ttf"
-minha_fonte = pygame.font.Font(caminho_fonte, 36)
+caminho_fonte = "assets/fontes/PublicPixel-E447g.ttf"  # Caminho para a fonte usada nos textos
+minha_fonte = pygame.font.Font(caminho_fonte, 36)  # Cria uma fonte para exibir textos na tela
+
+# Configura o texto para ser exibido na tela inicial do jogo
 texto_linha1 = "Aperte ENTER para"
 texto_linha2 = "iniciar o jogo"
+
+# Renderiza o texto
 texto_renderizado1 = minha_fonte.render(texto_linha1, True, (0, 100, 255))
 texto_renderizado2 = minha_fonte.render(texto_linha2, True, (0, 100, 255))
+
+# Define as posições do texto na tela
 posicao_y_linha1 = HEIGHT // 2 - texto_renderizado1.get_height()
 posicao_y_linha2 = HEIGHT // 2
-minha_fonte = pygame.font.Font(caminho_fonte, 32)
+
+minha_fonte = pygame.font.Font(caminho_fonte, 32)  # Cria uma nova fonte para outros textos
+
+# Configura os textos para serem exibidos após o jogo ser parado por colisão entre o Barry (Resina) e um obstáculo
 texto_linha2_1 = "Aperte ENTER para continuar jogando"
 texto_linha2_2 = "ou ESC para sair"
+
+# Renderiza os textos
 texto_renderizado2_1 = minha_fonte.render(texto_linha2_1, True, (0, 100, 255))
 texto_renderizado2_2 = minha_fonte.render(texto_linha2_2, True, (0, 100, 255))
+
+# Define as posições do texto na tela
 posicao_y_linha2_1 = HEIGHT // 2 - texto_renderizado2_1.get_height()
 posicao_y_linha2_2 = HEIGHT // 2
 
+# Dicionário para armazenar os textos e suas respectivas posições
 textos = {
     "texto_renderizado1": texto_renderizado1,
     "texto_renderizado2": texto_renderizado2,
@@ -55,9 +71,8 @@ moeda_fonte = "assets/fontes/PressStart2P.ttf"
 fonte_moeda = pygame.font.Font(moeda_fonte,56)
 
 
-#planos de fundo 
 
-
+# Carrega os planos de fundo do jogo
 WIDTH = 1200
 HEIGHT = 750
 background_i = pygame.image.load('assets/img/tela inicial.webp').convert()
@@ -74,7 +89,7 @@ IMAGEM_TRANSICAO_2 = pygame.image.load('assets/img/tela inicial.webp').convert()
 IMAGEM_TRANSICAO_2 = pygame.transform.scale(IMAGEM_TRANSICAO_2, (WIDTH, HEIGHT))
 background = FUNDOSELVA
 
-#BARRY
+# Imagens e dimensões relacionadas ao Barry (Resina)
 BARRY_WIDTH = 100
 BARRY_HEIGHT = 100
 barry_v_img = pygame.image.load('assets/img/boneco_voando_normal.png').convert_alpha()
@@ -87,13 +102,13 @@ barry_ep_img = pygame.image.load('assets/img/BARRY CHOQUE.png').convert_alpha()
 barry_ep_img = pygame.transform.scale(barry_ep_img, (BARRY_WIDTH, BARRY_HEIGHT))
 
 
-#TIRO
+# Imagens e dimensões relacionadas aos tiros
 TIRO_WIDTH = 50
 TIRO_HEIGHT = 70
 tiro_img = pygame.image.load('assets/img/tiro.png').convert_alpha()
 tiro_img = pygame.transform.scale(tiro_img,(TIRO_WIDTH,TIRO_HEIGHT))
 
-#OBSTACULOS
+# Imagens e dimensões relacionadas aos obstáculos
 MOEDAS_WIDTH = 50
 MOEDAS_HEIGHT = 38
 MOEDAS_img = pygame.image.load('assets/img/moeda.webp').convert_alpha()
@@ -118,7 +133,7 @@ BOB_img = pygame.image.load('assets/img/bobrow.png').convert_alpha()
 BOB_img = pygame.transform.scale(BOB_img,(BOB_WIDTH,BOB_HEIGHT))
 
 
-#ALERTAS 
+# Imagens e dimensões relacionadas aos alertas
 ALERTA_I_WIDTH = 150
 ALERTA_I_HEIGHT = 125
 ALERTA_I_img = pygame.image.load('assets/img/alerta-inicial.png').convert_alpha()
@@ -130,7 +145,7 @@ ALERTA_P_img = pygame.transform.scale(ALERTA_P_img,(ALERTA_P_WIDTH,ALERTA_P_HEIG
 
 
 
-
+# Dicionário para armazenar as imagens do jogo
 imagens = {
     "background_i": background_i,
     "logo": logo,
@@ -152,6 +167,8 @@ imagens = {
     "RAPOSA_img": RAPOSA_img,
     "BOB_img": BOB_img
 }
+
+# Dicionário para armazenar dimensões
 variaveis_dimensoes = {
     "BARRY_WIDTH": 100,
     "BARRY_HEIGHT": 100,
@@ -177,7 +194,7 @@ variaveis_dimensoes = {
 
 
 
-
+# Define imagens que certas variáveis recebem
 background_i = imagens["background_i"]
 logo = imagens["logo"]
 background = imagens["FUNDOSELVA"]
