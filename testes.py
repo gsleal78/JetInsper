@@ -27,7 +27,7 @@ while GAME:  # Loop principal do jogo enquanto a variável GAME for True
         for event in pygame.event.get():  # Loop de eventos
             if event.type == pygame.QUIT:  # Se o evento for fechar a janela
                 pygame.quit()  # Encerra o Pygame
-            if event.type == pygame.KEYDOWN:  # Se uma tecla for pressionada
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:  # Se a tecla pressionada for Enter
                     game_started = True  # Indica que o jogo foi iniciado
                     sons["hog_rider"].play()  # Toca o som de início do jogo
@@ -35,7 +35,7 @@ while GAME:  # Loop principal do jogo enquanto a variável GAME for True
         clock.tick(FPS)  # Controla a taxa de FPS
         continue  # Volta para o início do loop
 else:
-        if not jogo_acabou:  # Se o jogo ainda não acabou
+        if not jogo_acabou:
             for event in pygame.event.get():  # Loop de eventos
                 if event.type == pygame.QUIT:  # Se o evento for fechar a janela
                     pygame.quit()  # Encerra o Pygame
@@ -63,26 +63,26 @@ else:
                         voando.speedy = speed  # Mantém a velocidade do Barry
                         all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
                     else:
-                        fase_atingida = False  # Indica que a fase não foi atingida
-                        fase_atual += 1  # Sobe de fase
-                        # Limpa todos os grupos de sprites para preparar para a próxima fase
+                        fase_atingida = False  
+                        fase_atual += 1
+                        
                         all_sprites.empty()
                         all_moedas.empty()
                         lasersprite.empty()
                         bobsprite.empty
                         raposasprite.empty()
-                        background = imagens["background_i"]  # Altera a imagem de fundo para a nova fase
-                        criar_moedas_timer = pygame.time.get_ticks()  # Reinicia o timer para criar moedas
-                        criar_laser_timer = pygame.time.get_ticks()  # Reinicia o timer para criar lasers
-                        background_x = 0  # Reinicia a posição do plano de fundo
-                        # Salva certas variáveis do jogador para a próxima fase
+                        background = imagens["background_i"] 
+                        criar_moedas_timer = pygame.time.get_ticks() 
+                        criar_laser_timer = pygame.time.get_ticks()
+                        background_x = 0 
+                        
                         moedas_coletadas = voando.moedas_coletadas
                         posicao_y = voando.rect.y
                         speed = voando.speedy
-                        # Cria um novo Barry
+                        
                         voando = Barry(imagens["barry_v_img"], 50, posicao_y, moedas_coletadas)
-                        voando.speedy = speed  # Mantém a velocidade do Barry
-                        all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
+                        voando.speedy = speed 
+                        all_sprites.add(voando) 
                 else:
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_SPACE:  # Se a tecla pressionada foi a barra de espaço
@@ -103,9 +103,9 @@ else:
                             all_sprites.remove(voando)
                             BARRY = imagens["barry_v_img"]
                             voando = Barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
-                            all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
+                            all_sprites.add(voando) 
                             voando.shooting = False  # Muda o estado de atirar para False
-                            # Ajusta a velocidade vertical do Barry dependendo da fase atual
+                            
                             if fase_atual == 3: 
                                 voando.speedy -=8
                             else:
