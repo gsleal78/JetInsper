@@ -1,13 +1,25 @@
 import pygame 
 import random
-
-#DIMENSÕES DA TELA 
-WIDHT = 1200
-HEIGHT = 750
+from config import HEIGHT, WIDTH
 
 
 
-#caminho da fonte do texto
+pygame.mixer.music.load('assets/snd/Jetpack Joyride OST 🎼🎹 - Main Theme.mp3')
+pygame.mixer.music.set_volume(0.4)
+coin_sound = pygame.mixer.Sound('assets/snd/Mario Som Moedas ♪ 🔥🤑Olhe A Descrição 🤑🔥 (mp3cut.net).mp3')
+eletric_sound = pygame.mixer.Sound('assets/snd/eletrecutado.mp3')
+som_morte = pygame.mixer.Sound('assets/snd/som morrendo.mp3')
+som_tiro = pygame.mixer.Sound('assets/snd/Fortnite Scar Sound Effect (mp3cut.net).mp3')
+hod_rider = pygame.mixer.Sound('assets/snd/hogrider.mp3')
+som_bob = pygame.mixer.Sound('assets/snd/som_bob.mp3')
+sons = {
+    "coin_sound": coin_sound,
+    "eletric_sound": eletric_sound,
+    "som_morte": som_morte,
+    "som_tiro": som_tiro,
+    "hog_rider": hod_rider,
+    "som_bob": som_bob
+}
 
 caminho_fonte = "assets/fontes/PublicPixel-E447g.ttf"
 minha_fonte = pygame.font.Font(caminho_fonte, 36)
@@ -18,8 +30,8 @@ texto_renderizado2 = minha_fonte.render(texto_linha2, True, (0, 100, 255))
 posicao_y_linha1 = HEIGHT // 2 - texto_renderizado1.get_height()
 posicao_y_linha2 = HEIGHT // 2
 minha_fonte = pygame.font.Font(caminho_fonte, 32)
-texto_linha2_1 = "Aperte ESPACO para continuar jogando"
-texto_linha2_2 = "ou ENTER para sair"
+texto_linha2_1 = "Aperte ENTER para continuar jogando"
+texto_linha2_2 = "ou ESC para sair"
 texto_renderizado2_1 = minha_fonte.render(texto_linha2_1, True, (0, 100, 255))
 texto_renderizado2_2 = minha_fonte.render(texto_linha2_2, True, (0, 100, 255))
 posicao_y_linha2_1 = HEIGHT // 2 - texto_renderizado2_1.get_height()
@@ -54,17 +66,12 @@ logo = pygame.image.load('assets/img/logoresina.png').convert_alpha()
 logo = pygame.transform.scale(logo, (WIDTH-200, HEIGHT-300))
 TESTLAB = pygame.image.load('assets/img/plano de fundo testlab.jpg').convert()
 TESTLAB = pygame.transform.scale(TESTLAB, (WIDTH, HEIGHT))
-FUNDOPEDRA = pygame.image.load('assets/img/fundo pedra fogo.png').convert()
-FUNDOPEDRA = pygame.transform.scale(FUNDOPEDRA, (WIDTH, HEIGHT))
 FUNDOSELVA = pygame.image.load('assets/img/plano de fundo selva.webp').convert()
 FUNDOSELVA = pygame.transform.scale(FUNDOSELVA, (WIDTH, HEIGHT))
-FUNDOFINAL = pygame.image.load('assets/img/fundo_final.jpg')
-FUNDOFINAL = pygame.transform.scale(FUNDOFINAL, (WIDTH, HEIGHT))
 IMAGEM_TRANSICAO_1 = pygame.image.load('assets/img/tela inicial.webp').convert()
 IMAGEM_TRANSICAO_1 = pygame.transform.scale(IMAGEM_TRANSICAO_1, (WIDTH, HEIGHT))
 IMAGEM_TRANSICAO_2 = pygame.image.load('assets/img/tela inicial.webp').convert()
 IMAGEM_TRANSICAO_2 = pygame.transform.scale(IMAGEM_TRANSICAO_2, (WIDTH, HEIGHT))
-
 background = FUNDOSELVA
 
 #BARRY
@@ -78,12 +85,6 @@ barry_ed_img = pygame.image.load('assets/img/BARRY CHOQUE deitado.png').convert_
 barry_ed_img = pygame.transform.scale(barry_ed_img, (BARRY_WIDTH, BARRY_HEIGHT))
 barry_ep_img = pygame.image.load('assets/img/BARRY CHOQUE.png').convert_alpha()
 barry_ep_img = pygame.transform.scale(barry_ep_img, (BARRY_WIDTH, BARRY_HEIGHT))
-
-#CIENTISTA
-CIENTISTA_WIDTH = 100
-CIENTISTA_HEIGHT = 100
-CIENTISTA_img = pygame.image.load('assets/img/cientista.png').convert_alpha()
-CIENTISTA_img = pygame.transform.scale(CIENTISTA_img, (CIENTISTA_WIDTH, CIENTISTA_HEIGHT))
 
 
 #TIRO
@@ -103,10 +104,18 @@ CHOQUE1_img = pygame.image.load('assets/img/bolinhas do chao.webp').convert_alph
 CHOQUE1_img = pygame.transform.scale(CHOQUE1_img,(CHOQUE_WIDTH,CHOQUE_HEIGHT))
 CHOQUE2_img = pygame.image.load('assets/img/bolinhas_do_chao_2.png').convert_alpha()
 CHOQUE2_img = pygame.transform.scale(CHOQUE2_img,(CHOQUE_WIDTH,CHOQUE_HEIGHT))
-MISSIL_WIDTH = 300
-MISSIL_HEIGHT = 150
+MISSIL_WIDTH = 500
+MISSIL_HEIGHT = 500
 MISSIL_img = pygame.image.load('assets/img/missil com fogo.png').convert_alpha()
 MISSIL_img = pygame.transform.scale(MISSIL_img,(MISSIL_WIDTH,MISSIL_HEIGHT))
+RAPOSA_WIDTH = 100
+RAPOSA_HEIGHT = 100
+RAPOSA_img = pygame.image.load('assets/img/raposa.png').convert_alpha()
+RAPOSA_img = pygame.transform.scale(RAPOSA_img,(RAPOSA_WIDTH,RAPOSA_HEIGHT))
+BOB_WIDTH = 100
+BOB_HEIGHT = 100
+BOB_img = pygame.image.load('assets/img/bobrow.png').convert_alpha()
+BOB_img = pygame.transform.scale(BOB_img,(BOB_WIDTH,BOB_HEIGHT))
 
 
 #ALERTAS 
@@ -126,12 +135,9 @@ imagens = {
     "background_i": background_i,
     "logo": logo,
     "TESTLAB": TESTLAB,
-    "FUNDOPEDRA": FUNDOPEDRA,
     "FUNDOSELVA": FUNDOSELVA,
-    "FUNDOFINAL": FUNDOFINAL,
     "barry_v_img": barry_v_img,
     "barry_a_img": barry_a_img,
-    "CIENTISTA_img": CIENTISTA_img,
     "tiro_img": tiro_img,
     "MOEDAS_img": MOEDAS_img,
     "CHOQUE1_img": CHOQUE1_img,
@@ -142,11 +148,11 @@ imagens = {
     "IMAGEM_TRANSICAO_2": IMAGEM_TRANSICAO_2,
     "IMAGEM_TRANSICAO_1": IMAGEM_TRANSICAO_1,
     "barry_ed_img": barry_ed_img,
-    "barry_ep_img": barry_ep_img
+    "barry_ep_img": barry_ep_img,
+    "RAPOSA_img": RAPOSA_img,
+    "BOB_img": BOB_img
 }
 variaveis_dimensoes = {
-    "WIDTH": 1200,
-    "HEIGHT": 750,
     "BARRY_WIDTH": 100,
     "BARRY_HEIGHT": 100,
     "CIENTISTA_WIDTH": 100,
@@ -162,5 +168,29 @@ variaveis_dimensoes = {
     "ALERTA_I_WIDTH": 150,
     "ALERTA_I_HEIGHT": 125,
     "ALERTA_P_WIDTH": 150,
-    "ALERTA_P_HEIGHT": 125
+    "ALERTA_P_HEIGHT": 125,
+    "RAPOSA_HEIGHT": 38,
+    "RAPOSA_WIDTH": 50,
+    "BOB_HEIGHT": 38,
+    "BOB_WIDTH": 50
 }
+
+
+
+
+background_i = imagens["background_i"]
+logo = imagens["logo"]
+background = imagens["FUNDOSELVA"]
+BARRY = imagens["barry_v_img"]
+TIRO = imagens["tiro_img"]
+LASER1 = imagens["CHOQUE1_img"]
+LASER2 = imagens["CHOQUE2_img"]
+LASER_LISTA = [LASER1, LASER2]
+
+imagens_classes = {
+    "TIRO": TIRO,
+    "BARRY": BARRY,
+    "LASER_LISTA": LASER_LISTA
+}
+
+background = imagens["FUNDOSELVA"]
