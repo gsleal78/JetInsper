@@ -11,9 +11,9 @@ jogo_acabou = False  # Indica se o jogo acabou
 moedas_coletadas = 0  # Contador de moedas coletadas pelo jogador
 num_conjuntos = 1  # Número de conjuntos ou fases que o jogador completou
 
-# Configuração do relógio e FPS (Frames Per Second)
+# Configuração do relógio e FPS (Frames Por Segundo)
 clock = pygame.time.Clock()  # Cria um objeto Clock para controlar o tempo no jogo
-FPS = 100  # Define a taxa de quadros por segundo (100 FPS)
+FPS = 100  # Define a taxa de FPS
 
 # Variável para controlar a posição do plano de fundo
 background_x = 0
@@ -27,4 +27,4 @@ GAME = True  # Indica se o jogo está em execução
 criar_moedas_timer = pygame.time.get_ticks()  # Registra o tempo atual para criação de moedas
 criar_laser_timer = pygame.time.get_ticks()  # Registra o tempo atual para criação de lasers
 criar_raposa_timer = pygame.time.get_ticks()  # Registra o tempo atual para criação de raposas
-criar_bob_timer = pygame.time.get_ticks()  # Registra o tempo atual para criação de Bob
+criar_bob_timer = pygame.time.get_ticks()  # Registra o tempo atual para criação de Bobs
