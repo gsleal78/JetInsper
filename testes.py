@@ -34,67 +34,78 @@ while GAME:  # Loop principal do jogo enquanto a variável GAME for True
 
         clock.tick(FPS)  # Controla a taxa de FPS
         continue  # Volta para o início do loop
-    else: 
-        if not jogo_acabou: 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                if fase_atingida:
-                    if fase_atual == 2:
-                        fase_atingida = False
-                        fase_atual += 1
-                        background = imagens["TESTLAB"] 
-                        criar_moedas_timer = pygame.time.get_ticks()
-                        criar_laser_timer = pygame.time.get_ticks()
-                        background_x = 0
+else:
+        if not jogo_acabou:  # Se o jogo ainda não acabou
+            for event in pygame.event.get():  # Loop de eventos
+                if event.type == pygame.QUIT:  # Se o evento for fechar a janela
+                    pygame.quit()  # Encerra o Pygame
+                if fase_atingida:  # Se o jogador atingiu a fase
+                    if fase_atual == 2:  # Se a fase atual for 2
+                        # Prepara a transição para a próxima fase
+                        fase_atingida = False  # Indica que a fase foi atingida
+                        fase_atual += 1  # Sobe de fase
+                        background = imagens["TESTLAB"]  # Altera o plano de fundo para a fase seguinte
+                        criar_moedas_timer = pygame.time.get_ticks()  # Reinicia o timer para criar moedas
+                        criar_laser_timer = pygame.time.get_ticks()  # Reinicia o timer para criar lasers
+                        background_x = 0  # Reinicia a posição do plano de fundo
+                        # Limpa todos os grupos de sprites
                         all_sprites.empty()
                         all_moedas.empty()
                         lasersprite.empty()
-                        bobsprite.empty
-                        raposasprite.empty()
+                        bobsprite.empty  
+                        raposasprite.empty()  
+                        # Salva certas variáveis do jogador para a próxima fase
                         moedas_coletadas = voando.moedas_coletadas
                         posicao_y = voando.rect.y
                         speed = voando.speedy
+                        # Cria um novo Barry (Resina) para a próxima fase
                         voando = Barry(imagens["barry_v_img"], 50, posicao_y, moedas_coletadas)
-                        voando.speedy = speed
-                        all_sprites.add(voando)
+                        voando.speedy = speed  # Mantém a velocidade do Barry
+                        all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
                     else:
-                        fase_atingida = False
-                        fase_atual += 1
+                        fase_atingida = False  # Indica que a fase não foi atingida
+                        fase_atual += 1  # Sobe de fase
+                        # Limpa todos os grupos de sprites para preparar para a próxima fase
                         all_sprites.empty()
                         all_moedas.empty()
                         lasersprite.empty()
                         bobsprite.empty
                         raposasprite.empty()
                         background = imagens["background_i"]  # Altera a imagem de fundo para a nova fase
-                        criar_moedas_timer = pygame.time.get_ticks()
-                        criar_laser_timer = pygame.time.get_ticks()
-                        background_x = 0
+                        criar_moedas_timer = pygame.time.get_ticks()  # Reinicia o timer para criar moedas
+                        criar_laser_timer = pygame.time.get_ticks()  # Reinicia o timer para criar lasers
+                        background_x = 0  # Reinicia a posição do plano de fundo
+                        # Salva certas variáveis do jogador para a próxima fase
                         moedas_coletadas = voando.moedas_coletadas
                         posicao_y = voando.rect.y
                         speed = voando.speedy
+                        # Cria um novo Barry
                         voando = Barry(imagens["barry_v_img"], 50, posicao_y, moedas_coletadas)
-                        voando.speedy = speed
-                        all_sprites.add(voando)
+                        voando.speedy = speed  # Mantém a velocidade do Barry
+                        all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
                 else:
                     if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_SPACE:
+                        if event.key == pygame.K_SPACE:  # Se a tecla pressionada foi a barra de espaço
+                            # Troca a imagem do Barry atual por uma imagem do Barry voando, com fogo saindo da mochila a jato
                             all_sprites.remove(voando)
                             BARRY = imagens["barry_a_img"]
                             voando = Barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
-                            all_sprites.add(voando)
-                            voando.shooting = True
+                            all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
+                            voando.shooting = True  # Muda o estado de atirar do Barry para True
+                            # Ajusta a velocidade vertical do Barry dependendo da fase
                             if fase_atual == 3: 
                                 voando.speedy +=8
                             else:
                                 voando.speedy += 6
                     elif event.type == pygame.KEYUP:
-                        if event.key == pygame.K_SPACE:
+                        if event.key == pygame.K_SPACE:  # Se a tecla solta foi a barra de espaço
+                            # Remove o Barry voando e retorna à imagem do Barry normal
                             all_sprites.remove(voando)
                             BARRY = imagens["barry_v_img"]
                             voando = Barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
-                            all_sprites.add(voando)
-                            voando.shooting = False
+                            all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
+                            voando.shooting = False  # Muda o estado de atirar para False
+                            # Ajusta a velocidade vertical do Barry dependendo da fase
                             if fase_atual == 3: 
                                 voando.speedy -=8
                             else:
