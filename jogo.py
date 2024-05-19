@@ -1,5 +1,4 @@
 import pygame
-import time
 from config import WIDTH, HEIGHT, game_started, jogo_acabou, fase_atingida, fase_atual, GAME, clock, FPS, background_x, criar_laser_timer, criar_moedas_timer,criar_raposa_timer,criar_bob_timer
 pygame.init()
 pygame.mixer.init()
