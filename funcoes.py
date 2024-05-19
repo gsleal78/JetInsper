@@ -1,10 +1,10 @@
 import pygame  # Importa a biblioteca Pygame para criação do jogo
 import random  # Importa o módulo random para gerar números aleatórios
-from config import num_conjuntos, WIDTH, HEIGHT  # Importa configurações do jogo
-from imagens_sons import variaveis_dimensoes, imagens, imagens_classes  # Importa variáveis e imagens do jogo
-from classes import Moeda, Laser, Raposa, Bob, all_moedas, lasersprite, raposasprite, bobsprite, all_sprites  # Importa classes e grupos de sprites
+from config import num_conjuntos, WIDTH, HEIGHT  # Importa variáveis do arquivo config
+from imagens_sons import variaveis_dimensoes, imagens, imagens_classes  # Importa variáveis e imagens do jogo do arquivo imagens_sons
+from classes import Moeda, Laser, Raposa, Bob, all_moedas, lasersprite, raposasprite, bobsprite, all_sprites  # Importa classes e grupos de sprites do arquivo classes
 
-# Função para verificar colisão entre um sprite e qualquer sprite de um ou mais grupos
+# Função para verificar colisão entre um sprite e qualquer sprite de um grupo
 def verificar_colisao_com_todos(sprite, grupos):
     for grupo in grupos:
         if pygame.sprite.spritecollideany(sprite, grupo, collided=pygame.sprite.collide_mask):
@@ -46,7 +46,7 @@ def criar_moedas(velocidade):
         for pos in positions:
             moeda = Moeda(imagens["MOEDAS_img"], *pos, velocidade)
             if verificar_colisao_com_todos(moeda, [all_sprites]):
-                pode_criar = False  # Define para False se houver colisão
+                pode_criar = False  # Define False se houver colisão
                 break
 
         if pode_criar:  # Se não houver colisão, cria as moedas
@@ -63,7 +63,7 @@ def criar_laser(velocidade):
 
     while tentativas < max_tentativas:
         tentativas += 1  # Incrementa o contador de tentativas
-        LASER = random.choice(imagens_classes["LASER_LISTA"])  # Escolhe uma imagem de laser aleatoriamente
+        LASER = random.choice(imagens_classes["LASER_LISTA"])  # Escolhe uma imagem de laser aleatoriamente na chave LASER_LISTA do dicionario imagens_classes no arquivo imagens_sons
         x = random.randint(WIDTH, WIDTH + 200)
         y = random.randint(100 + variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
         laser = Laser(LASER, x, y, velocidade)
@@ -89,9 +89,9 @@ def criar_raposa(velocidade):
             all_sprites.add(raposa)  # Adiciona a raposa ao grupo all_sprites
             break
 
-# Função para criar Bob em posições aleatórias
+# Função para criar o Bob em posições aleatórias
 def criar_bob(velocidade):
-    max_tentativas = 10  # Limite de tentativas para criar Bob
+    max_tentativas = 10  # Limite de tentativas para criar o Bob
     tentativas = 0
 
     while tentativas < max_tentativas:
@@ -100,7 +100,7 @@ def criar_bob(velocidade):
         y = random.randint(100 + variaveis_dimensoes["BOB_HEIGHT"], HEIGHT)
         bob = Bob(imagens["BOB_img"], velocidade, x, y)
         colisao = verificar_colisao_com_todos(bob, [all_sprites])
-        if not colisao:  # Se não houver colisão, adiciona Bob
-            bobsprite.add(bob)  # Adiciona Bob ao grupo bobsprite
-            all_sprites.add(bob)  # Adiciona Bob ao grupo all_sprites
+        if not colisao:  # Se não houver colisão, adiciona o Bob
+            bobsprite.add(bob)  # Adiciona o Bob ao grupo bobsprite
+            all_sprites.add(bob)  # Adiciona o Bob ao grupo all_sprites
             break
