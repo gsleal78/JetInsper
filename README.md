@@ -1,4 +1,4 @@
-# PYGAME
+# JET INSPER
 Este jogo foi feito pelos alunos Guilherme Leal, Bruno Fava e Ishai Dayan, utilizando o github para produzir o jogo simultâneamente em 3 computadores registrando as alterações.
 
 DESCRIÇÃO DO JOGO: 
