@@ -5,7 +5,7 @@ DESCRIÇÃO DO JOGO:
 O desafio é coletar o máximo de moedas possíveis sem encostar nos obstáculos, que resulta em término do jogo.
 
 COMO JOGAR: 
-O jogador deve pressionar a tecla "espaço" para fazer o barry voar, a fim de coletar moedas e desviar dos obstáculos. Enquanto a tecla estiver pressionada, barry vai subir até chegar ao teto, e quando a tecla for solta, ele passa a descer automaticamente até chegar ao solo.
+O jogador deve pressionar a tecla "espaço" para fazer o Prof. Resina voar, a fim de coletar moedas e desviar dos obstáculos. Enquanto a tecla estiver pressionada, Resina vai subir até chegar ao teto, e quando a tecla for solta, ele passa a descer automaticamente até chegar ao solo.
 
 REFERENCIAS: 
 O jogo JetInsper foi baseado no jogo JetPack, que foi a principal referência. Ademais, as imagens foram retiradas do site https://jetpackjoyride.fandom.com/wiki/Backgrounds
