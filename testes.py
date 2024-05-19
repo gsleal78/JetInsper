@@ -105,23 +105,23 @@ else:
                             voando = Barry(BARRY, voando.rect.x, voando.rect.y, voando.moedas_coletadas)
                             all_sprites.add(voando)  # Adiciona o novo Barry ao grupo de sprites
                             voando.shooting = False  # Muda o estado de atirar para False
-                            # Ajusta a velocidade vertical do Barry dependendo da fase
+                            # Ajusta a velocidade vertical do Barry dependendo da fase atual
                             if fase_atual == 3: 
                                 voando.speedy -=8
                             else:
                                 voando.speedy -= 6
             if fase_atual == 1:
-                background_x -= 7
-                if pygame.time.get_ticks() - criar_moedas_timer > 2500:
-                    criar_moedas(7)
-                    criar_moedas_timer = pygame.time.get_ticks()
-                if pygame.time.get_ticks() - criar_laser_timer > 4000:
-                    criar_laser(7)
-                    criar_laser_timer = pygame.time.get_ticks()
-                if pygame.time.get_ticks() - criar_raposa_timer > 3250: 
-                    criar_raposa(7)
-                    criar_raposa_timer = pygame.time.get_ticks()
-                    
+                background_x -= 7  # Faz o fundo se mover para a esquerda
+                if pygame.time.get_ticks() - criar_moedas_timer > 2500:  # Verifica se é hora de criar moedas
+                    criar_moedas(7)  # Chama a função para criar moedas
+                    criar_moedas_timer = pygame.time.get_ticks()  # Reinicia o temporizador para criar moedas
+                if pygame.time.get_ticks() - criar_laser_timer > 4000:  # Verifica se é hora de criar lasers
+                    criar_laser(7)  # Chama a função para criar lasers
+                    criar_laser_timer = pygame.time.get_ticks()  # Reinicia o temporizador para criar lasers
+                if pygame.time.get_ticks() - criar_raposa_timer > 3250:  # Verifica se é hora de criar raposas
+                    criar_raposa(7)  # Chama a função para criar raposas
+                    criar_raposa_timer = pygame.time.get_ticks()  # Reinicia o temporizador para criar raposas
+
             elif fase_atual == 2:
                 background_x -= 10
                 if pygame.time.get_ticks() - criar_moedas_timer > 2000:
@@ -136,6 +136,7 @@ else:
                 if pygame.time.get_ticks() - criar_bob_timer> 3000: 
                     criar_bob(10)
                     criar_bob_timer = pygame.time.get_ticks()
+
             elif fase_atual == 3:
                 background_x -= 10
                 if pygame.time.get_ticks() - criar_moedas_timer > 1400:
