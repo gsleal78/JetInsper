@@ -1,5 +1,5 @@
 import pygame  # Importa a biblioteca Pygame para desenvolvimento de jogos
-import random  # Importa a biblioteca random para gerar números aleatórios
+import random  # Importa o módulo random para gerar números aleatórios
 from config import HEIGHT, WIDTH, moedas_coletadas  # Importa variáveis do arquivo config
 from imagens_sons import sons, imagens_classes, variaveis_dimensoes  # Importa sons, imagens e dimensões das variáveis do arquivo imagens_sons
 
