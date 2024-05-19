@@ -1,7 +1,7 @@
-import pygame  # Importa o módulo Pygame para desenvolvimento de jogos
-import random  # Importa o módulo random para gerar números aleatórios
-from config import HEIGHT, WIDTH, moedas_coletadas  # Importa variáveis de configuração do jogo
-from imagens_sons import sons, imagens_classes, variaveis_dimensoes  # Importa sons, imagens e dimensões das variáveis
+import pygame  # Importa a biblioteca Pygame para desenvolvimento de jogos
+import random  # Importa a biblioteca random para gerar números aleatórios
+from config import HEIGHT, WIDTH, moedas_coletadas  # Importa variáveis do arquivo config
+from imagens_sons import sons, imagens_classes, variaveis_dimensoes  # Importa sons, imagens e dimensões das variáveis do arquivo imagens_sons
 
 # Grupos de sprites
 all_sprites = pygame.sprite.Group()  # Grupo para todos os sprites
@@ -11,9 +11,9 @@ lasersprite = pygame.sprite.Group()  # Grupo para todos os lasers
 raposasprite = pygame.sprite.Group()  # Grupo para todas as raposas
 bobsprite = pygame.sprite.Group()  # Grupo para todos os Bobs
 
-class Barry(pygame.sprite.Sprite):  # Define a classe Barry, que herda de pygame.sprite.Sprite
+class Barry(pygame.sprite.Sprite):  # Define a classe Barry (Prof Resina no jogo)
     def __init__(self, img, x, y, moedas_coletadas):
-        pygame.sprite.Sprite.__init__(self)  # Inicializa a superclasse Sprite
+        pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem do sprite
         self.rect = self.image.get_rect()  # Define o retângulo de colisão baseado na imagem
         self.rect.x = x  # Define a posição x inicial do sprite
@@ -23,7 +23,7 @@ class Barry(pygame.sprite.Sprite):  # Define a classe Barry, que herda de pygame
         self.speedy = 0  # Velocidade inicial em y
         self.last_shot = pygame.time.get_ticks()  # Tempo do último tiro disparado
         self.shoot_delay = 75  # Intervalo entre tiros
-        self.shooting = False  # Flag para verificar se está atirando
+        self.shooting = False  # Vai verificar se está atirando
         self.moedas_coletadas = moedas_coletadas  # Número de moedas coletadas
         self.mask = pygame.mask.from_surface(self.image)  # Máscara de colisão
 
@@ -43,9 +43,9 @@ class Barry(pygame.sprite.Sprite):  # Define a classe Barry, que herda de pygame
         all_bullets.add(new_bullet)  # Adiciona o tiro ao grupo de tiros
         self.last_shot = pygame.time.get_ticks()  # Atualiza o tempo do último tiro
 
-class Tiro(pygame.sprite.Sprite):  # Define a classe Tiro, que herda de pygame.sprite.Sprite
+class Tiro(pygame.sprite.Sprite):  # Define a classe Tiro
     def __init__(self, img, bottom, centerx):
-        pygame.sprite.Sprite.__init__(self)  # Inicializa a superclasse Sprite
+        pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem do tiro
         self.rect = self.image.get_rect()  # Define o retângulo de colisão baseado na imagem
         self.rect.centerx = centerx  # Define a posição x central do tiro
@@ -57,9 +57,9 @@ class Tiro(pygame.sprite.Sprite):  # Define a classe Tiro, que herda de pygame.s
         if self.rect.bottom < 0:  # Verifica se o tiro está fora da tela
             self.kill()  # Remove o tiro do jogo
 
-class Moeda(pygame.sprite.Sprite):  # Define a classe Moeda, que herda de pygame.sprite.Sprite
+class Moeda(pygame.sprite.Sprite):  # Define a classe Moeda
     def __init__(self, img, x, y, velocidade):
-        pygame.sprite.Sprite.__init__(self)  # Inicializa a superclasse Sprite
+        pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem da moeda
         self.rect = self.image.get_rect()  # Define o retângulo de colisão baseado na imagem
         self.rect.x = x  # Define a posição x inicial da moeda
@@ -72,9 +72,9 @@ class Moeda(pygame.sprite.Sprite):  # Define a classe Moeda, que herda de pygame
         if self.rect.right < 0:  # Verifica se a moeda está fora da tela
             self.kill()  # Remove a moeda do jogo
 
-class Laser(pygame.sprite.Sprite):  # Define a classe Laser, que herda de pygame.sprite.Sprite
+class Laser(pygame.sprite.Sprite):  # Define a classe Laser
     def __init__(self, img, x, y, velocidade):
-        pygame.sprite.Sprite.__init__(self)  # Inicializa a superclasse Sprite
+        pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem do laser
         self.rect = self.image.get_rect()  # Define o retângulo de colisão baseado na imagem
         self.rect.x = x  # Define a posição x inicial do laser
@@ -91,9 +91,9 @@ class Laser(pygame.sprite.Sprite):  # Define a classe Laser, que herda de pygame
 voando = Barry(imagens_classes["BARRY"], 50, 750, moedas_coletadas)
 all_sprites.add(voando)  # Adiciona o sprite Barry ao grupo de todos os sprites
 
-class Raposa(pygame.sprite.Sprite):  # Define a classe Raposa, que herda de pygame.sprite.Sprite
+class Raposa(pygame.sprite.Sprite):  # Define a classe Raposa
     def __init__(self, img, velocidade, x, y):
-        pygame.sprite.Sprite.__init__(self)  # Inicializa a superclasse Sprite
+        pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem da raposa
         self.rect = self.image.get_rect()  # Define o retângulo de colisão baseado na imagem
         self.rect.x = x  # Define a posição x inicial da raposa
@@ -106,9 +106,9 @@ class Raposa(pygame.sprite.Sprite):  # Define a classe Raposa, que herda de pyga
         if self.rect.right < 0:  # Verifica se a raposa está fora da tela
             self.kill()  # Remove a raposa do jogo
 
-class Bob(pygame.sprite.Sprite):  # Define a classe Bob, que herda de pygame.sprite.Sprite
+class Bob(pygame.sprite.Sprite):  # Define a classe Bob
     def __init__(self, img, velocidade, x, y):
-        pygame.sprite.Sprite.__init__(self)  # Inicializa a superclasse Sprite
+        pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem do Bob
         self.rect = self.image.get_rect()  # Define o retângulo de colisão baseado na imagem
         self.rect.x = x  # Define a posição x inicial do Bob
