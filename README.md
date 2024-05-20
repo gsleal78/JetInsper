@@ -36,9 +36,10 @@ ___
 
 **REFERÊNCIAS**
 
-Todas as imagens, fundos, objetos e música que são do próprio JetPack Joy ride foram retiradas deste [site]( https://jetpackjoyride.fandom.com/wiki/Backgrounds)
+Todas as imagens, fundos, objetos e música que são do próprio JetPack Joy ride foram retiradas deste [site](https://jetpackjoyride.fandom.com/wiki/Backgrounds)
 
 Já os sons específicos, todos foram retirados do yt, segue abaixo os links: 
+
 [som de choque](https://www.youtube.com/watch?v=Pf2fUXzbfvE)
 
 [som de colisão com a raposa](https://www.youtube.com/watch?v=r5L0QgZOGG4)
