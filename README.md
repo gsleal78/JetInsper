@@ -1,5 +1,5 @@
 # JET INSPER
-Este jogo foi feito pelos alunos Guilherme Leal, Bruno Fava e Ishai Dayan do primeiro semestre de Engenharia do Insper
+Este jogo foi feito pelos alunos Guilherme Leal, Bruno Fava e Ishai Dayan do primeiro semestre de Engenharia do Insper 2024.1
 
 ____
 
@@ -47,6 +47,8 @@ Já os sons específicos, todos foram retirados do yt, segue abaixo os links:
 [som de colisão com o bob foi retirado deste vídeo](https://youtu.be/NPbWhDaESds?si=lbKSESh3FhmGoR7l)
 
 [som quando o jogo começa](https://youtube.com/shorts/ZuouNp7KsCg?si=A83jZ3s7aX8MC7-2)
+
+[som moedas](https://www.youtube.com/watch?v=cTWE42VwZO0)
 
 
 
