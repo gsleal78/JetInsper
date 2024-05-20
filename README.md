@@ -34,9 +34,7 @@ Para jogo é muito simple e intuitivo, o único comando é a tecla de espaço! E
 
 ___
 
-```diff
--**REFERÊNCIAS**
-```
+<span style="color:#f03c15; font-family: Arial, sans-serif;">**REFERENCIAS**</span><br>
 
 Todas as imagens, fundos, objetos e música que são do próprio JetPack Joy ride foram retiradas deste [site](https://jetpackjoyride.fandom.com/wiki/Backgrounds)
 
