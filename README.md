@@ -30,7 +30,7 @@ ___
 
 Para jogo é muito simple e intuitivo, o único comando é a tecla de espaço! Enquanto ela estiver pressionada, o personagem sobe até que chegue ao topo, e enquanto não estiver, o personagem desce até chegar ao chão! Nas primeiras duas fases, você vai achar fácil, mas na fase final, você precisará saber o momento exato para apertar ou soltar a tecla de espaço! É um jogo *simples*, mas *divertido!*
 
-[Clique aqui para ver uma explicação do em vídeo](https://youtu.be/2yycGEFCNYE?si=ADAOsP_U89KsQ5OM)
+[Clique aqui para ver uma explicação do em vídeo](https://youtu.be/65WzE0_2O1s)
 
 ___
 
