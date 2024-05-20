@@ -204,10 +204,13 @@ LASER1 = imagens["CHOQUE1_img"]
 LASER2 = imagens["CHOQUE2_img"]
 LASER_LISTA = [LASER1, LASER2]
 
+#cria um dicionario para as imagens que serão utilziadas dentro do arquivo classes 
 imagens_classes = {
     "TIRO": TIRO,
     "BARRY": BARRY,
     "LASER_LISTA": LASER_LISTA
 }
 
+
+#Define o background inicial
 background = imagens["FUNDOSELVA"]

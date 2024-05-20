@@ -1,5 +1,5 @@
-import pygame  # Importa a biblioteca Pygame para criação do jogo
-import random  # Importa o módulo random para gerar números aleatórios
+import pygame  
+import random 
 from config import num_conjuntos, WIDTH, HEIGHT  # Importa variáveis do arquivo config
 from imagens_sons import variaveis_dimensoes, imagens, imagens_classes  # Importa variáveis e imagens do jogo do arquivo imagens_sons
 from classes import Moeda, Laser, Raposa, Bob, all_moedas, lasersprite, raposasprite, bobsprite, all_sprites  # Importa classes e grupos de sprites do arquivo classes
@@ -22,7 +22,7 @@ def criar_moedas(velocidade):
             center_x = random.randint(WIDTH, WIDTH + 200)
             center_y = random.randint(100 + 3 * variaveis_dimensoes["MOEDAS_HEIGHT"], HEIGHT - 100 - 3 * variaveis_dimensoes["MOEDAS_HEIGHT"])
 
-            # Definindo posições para as moedas em torno de um ponto central
+            # Definindo posições para as moedas em torno de um ponto central para que todas fiquem alinhadas em duas linhas
             positions = [
                 (center_x - 20, center_y - 20),
                 (center_x + 20, center_y - 20),
@@ -63,11 +63,15 @@ def criar_laser(velocidade):
 
     while tentativas < max_tentativas:
         tentativas += 1  # Incrementa o contador de tentativas
-        LASER = random.choice(imagens_classes["LASER_LISTA"])  # Escolhe uma imagem de laser aleatoriamente na chave LASER_LISTA do dicionario imagens_classes no arquivo imagens_sons
-        x = random.randint(WIDTH, WIDTH + 200)
+        LASER = random.choice(imagens_classes["LASER_LISTA"])  # Escolhe uma imagem de laser aleatoria dentro das existentes na lista 
+
+        #Escolhe uma posição aleatória para o laser 
+        x = random.randint(WIDTH, WIDTH + 200) 
         y = random.randint(100 + variaveis_dimensoes["CHOQUE_HEIGHT"], HEIGHT)
+
+        #Cria o laser 
         laser = Laser(LASER, x, y, velocidade)
-        colisao = verificar_colisao_com_todos(laser, [all_sprites])
+        colisao = verificar_colisao_com_todos(laser, [all_sprites]) #verifica colisao
         if not colisao:  # Se não houver colisão, adiciona o laser
             lasersprite.add(laser)  # Adiciona o laser ao grupo lasersprite
             all_sprites.add(laser)  # Adiciona o laser ao grupo all_sprites
@@ -80,10 +84,13 @@ def criar_raposa(velocidade):
 
     while tentativas < max_tentativas:
         tentativas += 1  # Incrementa o contador de tentativas
+
+        #Escolhe uma posição aleatória para a raposa
         x = random.randint(WIDTH, WIDTH + 200)
         y = random.randint(100 + variaveis_dimensoes["RAPOSA_HEIGHT"], HEIGHT)
+        #Cria a raposa
         raposa = Raposa(imagens["RAPOSA_img"], velocidade, x, y)
-        colisao = verificar_colisao_com_todos(raposa, [all_sprites])
+        colisao = verificar_colisao_com_todos(raposa, [all_sprites]) #verifica colisões com outros sprites
         if not colisao:  # Se não houver colisão, adiciona a raposa
             raposasprite.add(raposa)  # Adiciona a raposa ao grupo raposasprite
             all_sprites.add(raposa)  # Adiciona a raposa ao grupo all_sprites
@@ -96,10 +103,12 @@ def criar_bob(velocidade):
 
     while tentativas < max_tentativas:
         tentativas += 1  # Incrementa o contador de tentativas
+        #Escolhe uma posição aleatória para o Bob
         x = random.randint(WIDTH, WIDTH + 200)
         y = random.randint(100 + variaveis_dimensoes["BOB_HEIGHT"], HEIGHT)
+        #cria o bob
         bob = Bob(imagens["BOB_img"], velocidade, x, y)
-        colisao = verificar_colisao_com_todos(bob, [all_sprites])
+        colisao = verificar_colisao_com_todos(bob, [all_sprites]) #verifica colisões com outros sprites
         if not colisao:  # Se não houver colisão, adiciona o Bob
             bobsprite.add(bob)  # Adiciona o Bob ao grupo bobsprite
             all_sprites.add(bob)  # Adiciona o Bob ao grupo all_sprites
