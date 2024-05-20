@@ -34,7 +34,8 @@ Para jogo é muito simple e intuitivo, o único comando é a tecla de espaço! E
 
 ___
 
-$${\color{red}**REFERÊNCIAS**}$$
+[!**RE**]  
+**REFERÊNCIAS**
 
 Todas as imagens, fundos, objetos e música que são do próprio JetPack Joy ride foram retiradas deste [site](https://jetpackjoyride.fandom.com/wiki/Backgrounds)
 
