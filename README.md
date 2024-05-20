@@ -33,7 +33,8 @@ Para jogo é muito simple e intuitivo, o único comando é a tecla de espaço! E
 [Clique aqui para ver uma explicação do em vídeo](https://youtu.be/2yycGEFCNYE?si=ADAOsP_U89KsQ5OM)
 
 ___
-<span style="color:#c5f015; font-family: 'Courier New', monospace;">Texto Verde em Courier New</span><br>
+
+**REFERÊNCIAS**
 
 Todas as imagens, fundos, objetos e música que são do próprio JetPack Joy ride foram retiradas deste [site](https://jetpackjoyride.fandom.com/wiki/Backgrounds)
 
