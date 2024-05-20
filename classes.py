@@ -11,6 +11,11 @@ raposasprite = pygame.sprite.Group()
 bobsprite = pygame.sprite.Group()  
 
 class Barry(pygame.sprite.Sprite):  # Define a classe Barry (Prof Resina no jogo)
+    '''
+    Classe para o jogador principal
+    Define a posição, imagem, e numero de moedas coletadas, tiros que saem do personagem
+
+    '''
     def __init__(self, img, x, y, moedas_coletadas):
         pygame.sprite.Sprite.__init__(self)  # Inicializa o Sprite
         self.image = img  # Define a imagem do sprite
@@ -57,6 +62,9 @@ class Barry(pygame.sprite.Sprite):  # Define a classe Barry (Prof Resina no jogo
 
 #Definindo uma classe para os tiros
 class Tiro(pygame.sprite.Sprite):
+    '''
+    Classe para criar os tiros, seguindo o jogador
+    '''
     def __init__(self, img, bottom, centerx):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
@@ -74,6 +82,10 @@ class Tiro(pygame.sprite.Sprite):
 
 #Definindo uma classe para as moedas
 class Moeda(pygame.sprite.Sprite):
+    '''
+    Classe para criar as moedas e torna-las coletáveis
+
+    '''
     def __init__(self, img, x, y, velocidade):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
@@ -91,6 +103,9 @@ class Moeda(pygame.sprite.Sprite):
 
 #Definindo uma classe para os Lasers
 class Laser(pygame.sprite.Sprite):
+    '''
+    Classe para criar os Laser 
+    '''
     def __init__(self, img, x, y, velocidade):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
@@ -113,6 +128,9 @@ all_sprites.add(voando)  # Adiciona o sprite Barry ao grupo de todos os sprites
 
 #Definindo uma classe para as Raposas
 class Raposa(pygame.sprite.Sprite):
+    '''
+    Classe para criar os Raposa 
+    '''
     def __init__(self, img, velocidade, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
@@ -129,6 +147,9 @@ class Raposa(pygame.sprite.Sprite):
 
 #Definindo uma classe para os Bobs
 class Bob(pygame.sprite.Sprite):
+    '''
+    Classe para criar os Bob
+    '''
     def __init__(self, img, velocidade, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = img

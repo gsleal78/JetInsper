@@ -15,6 +15,7 @@ som_bob = pygame.mixer.Sound('assets/snd/som_bob.mp3')
 
 # Cria um dicionário para armazenar os efeitos sonoros
 sons = {
+    
     "coin_sound": coin_sound,
     "eletric_sound": eletric_sound,
     "som_morte": som_morte,
@@ -22,6 +23,7 @@ sons = {
     "hog_rider": hod_rider,
     "som_bob": som_bob
 }
+
 
 caminho_fonte = "assets/fontes/PublicPixel-E447g.ttf"  # Caminho para a fonte usada nos textos
 minha_fonte = pygame.font.Font(caminho_fonte, 36)  # Cria uma fonte para exibir textos na tela

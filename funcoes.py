@@ -6,6 +6,11 @@ from classes import Moeda, Laser, Raposa, Bob, all_moedas, lasersprite, raposasp
 
 # Função para verificar colisão entre um sprite e qualquer sprite de um grupo
 def verificar_colisao_com_todos(sprite, grupos):
+    '''
+    Função que verifica se existe uma colisão com outros obstáculos
+    Retorna True caso exista
+    Retorna False caso não
+    '''
     for grupo in grupos:
         if pygame.sprite.spritecollideany(sprite, grupo, collided=pygame.sprite.collide_mask):
             return True  # Retorna True se houver colisão
@@ -13,6 +18,10 @@ def verificar_colisao_com_todos(sprite, grupos):
 
 # Função para criar moedas em posições aleatórias
 def criar_moedas(velocidade):
+    '''
+    Função que cria as moedas
+    Aloca as moedas em duas linhas continuas
+    '''
     max_tentativas = 10  # Limite de tentativas para criar moedas
     tentativas = 0
     
@@ -58,6 +67,9 @@ def criar_moedas(velocidade):
 
 # Função para criar lasers em posições aleatórias
 def criar_laser(velocidade):
+    '''
+    Cria os lasers 
+    '''
     max_tentativas = 10  # Limite de tentativas para criar lasers
     tentativas = 0
 
@@ -79,6 +91,9 @@ def criar_laser(velocidade):
 
 # Função para criar raposas em posições aleatórias
 def criar_raposa(velocidade):
+    '''
+    Cria as raposas
+    '''
     max_tentativas = 10  # Limite de tentativas para criar raposas
     tentativas = 0
 
@@ -98,6 +113,9 @@ def criar_raposa(velocidade):
 
 # Função para criar o Bob em posições aleatórias
 def criar_bob(velocidade):
+    '''
+    Cria os bobs
+    '''
     max_tentativas = 10  # Limite de tentativas para criar o Bob
     tentativas = 0
 
