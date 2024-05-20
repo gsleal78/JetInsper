@@ -39,9 +39,12 @@ ___
 Todas as imagens, fundos, objetos e música que são do próprio JetPack Joy ride foram retiradas deste [site]( https://jetpackjoyride.fandom.com/wiki/Backgrounds)
 
 Já os sons específicos, todos foram retirados do yt, segue abaixo os links: 
-[som de choque]()
+[som de choque](https://www.youtube.com/watch?v=Pf2fUXzbfvE)
+
 [som de colisão com a raposa](https://www.youtube.com/watch?v=r5L0QgZOGG4)
+
 [som de colisão com o bob foi retirado deste vídeo](https://youtu.be/NPbWhDaESds?si=lbKSESh3FhmGoR7l)
+
 [som quando o jogo começa](https://youtube.com/shorts/ZuouNp7KsCg?si=A83jZ3s7aX8MC7-2)
 
 
@@ -50,9 +53,3 @@ Já os sons específicos, todos foram retirados do yt, segue abaixo os links:
 
 
 
-
-REFERENCIAS: 
-O jogo JetInsper foi baseado no jogo JetPack, que foi a principal referência. Ademais, as imagens foram retiradas do site https://jetpackjoyride.fandom.com/wiki/Backgrounds
-
-BIBLIOTECAS USADAS:
-Para produzir o jogo foram utilizadas as bibliotecas PYGAME e RANDOM.
