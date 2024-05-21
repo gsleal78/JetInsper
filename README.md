@@ -23,12 +23,12 @@ ___
 
 Para conseguir rodar o jogo, voce deve baixar os arquivos disponiveis neste repositório, e garantir que todos eles estejam em uma mesma pasta/diretório! *Caso não estejam, o jogo não irá funcionar!* Você deve rodar o arquivo jogo.py, os outros arquivos são apenas um apoio para o arquivo principal. Ao rodar este arquivo, a tela do jogo irá ser gerada, e pronto, pode *começar a jogar*!
 
-Além disso, você precisa ter instalado o pygame, caso não saiba como fazer isso, [aqui tem um link para um tutorial](https://petlja.org/biblioteka/r/lekcije/TxtProgInPythonEng/03_pygame-03_pygame_01_intro#:~:text=Just%20type%20pip3%20install%20pygame,3%20%2Dm%20pip%20install%20pygame%20.)
+Além disso, você precisa ter instalado o pygame, caso não saiba como fazer isso, aqui tem um [link para um tutorial](https://petlja.org/biblioteka/r/lekcije/TxtProgInPythonEng/03_pygame-03_pygame_01_intro#:~:text=Just%20type%20pip3%20install%20pygame,3%20%2Dm%20pip%20install%20pygame%20.)
 ___
 
 **COMO JOGAR**
 
-Para jogo é muito simple e intuitivo, o único comando é a tecla de espaço! Enquanto ela estiver pressionada, o personagem sobe até que chegue ao topo, e enquanto não estiver, o personagem desce até chegar ao chão! Nas primeiras duas fases, você vai achar fácil, mas na fase final, você precisará saber o momento exato para apertar ou soltar a tecla de espaço! É um jogo *simples*, mas *divertido!*
+O jogo é muito simple e intuitivo, o único comando é a tecla de espaço! Enquanto ela estiver pressionada, o personagem sobe até que chegue ao topo, e enquanto não estiver, o personagem desce até chegar ao chão! Nas primeiras duas fases, você vai achar fácil, mas na fase final, você precisará saber o momento exato para apertar ou soltar a tecla de espaço! É um jogo *simples*, mas *divertido!*
 
 [Clique aqui para ver como é o jogo](https://youtu.be/XlOhrXBBdiI)
 
